@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <title>Raydio</title>
+    <script type="text/javascript">
+        let initialised = false;
+        let state = {
+            service: "{{ .service }}",
+            station: "{{ .station }}",
+            volume: parseInt("{{ .volume }}"),
+            playing: "{{ .playing }}".toLocaleLowerCase() === "true",
+            config: {
+                stations: [{{ range .stations }}
+                    { "id": {{ .Id }}, "name": {{ .Name }} },
+                {{ end }}]
+            }
+        }
+
+        function playAction() {
+            fetch("/api/player", {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "playing": state.playing ? "false" : "true"
+                })
+            }).then(()=>updatePlayer());
+        } 
+
+        function changeStation(selectEvent){
+            fetch("/api/webradio", {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "station": selectEvent.target.value
+                })
+            }).then(()=>updateStation());
+        }
+
+        function updatePlayer() {
+            fetch("/api/player")
+            .then((result)=>result.json())
+            .then((playerState)=>{
+                newState = {...state, "volume": playerState["volume"], "playing": playerState["playing"]}
+                updateState(newState)
+            })
+        }
+
+        function updateStation() {
+            fetch("/api/webradio")
+            .then((result)=>result.json())
+            .then((radioState)=>{
+                newState = {...state, "station": radioState["station"]["Name"]}
+                updateState(state)
+            })
+        }
+
+        function updateState(newState){
+            document.querySelector("#play-button").innerHTML = state.playing ? "Pause" : "Play";
+
+            document.querySelector("#state-service").innerHTML = state.service;
+            document.querySelector("#state-station").innerHTML = state.station;
+            document.querySelector("#state-volume").innerHTML = state.volume;
+            document.querySelector("#state-playing").innerHTML = state.playing;
+
+            if (!initialised){
+                const selectList = document.querySelector("#station-select")
+                selectList.innerHTML = '';
+                for (let station of state.config.stations){
+                    var option = document.createElement("option");
+                    var text = document.createTextNode(station.name);
+                    option.appendChild(text);
+                    option.setAttribute("value", station.id)
+                    selectList.appendChild(option);
+                }
+                initialised = true;
+            }
+            state = newState;
+        }
+
+        function update(){
+            updatePlayer()
+            updateStation()
+        }
+    </script>
+</head>
+
+<body onload="setInterval(update, 1000); updateState(state)">
+    <h1>Raydio Web Client</h1>
+    <button onclick="playAction()" id="play-button">Play</button>
+    <br />
+    <select onchange="changeStation(event)" id="station-select"></select>
+    <table>
+        <tr>
+            <td>Service:</td>
+            <td id="state-service"></td>
+        </tr>
+        <tr>
+            <td>Station:</td>
+            <td id="state-station"></td>
+        </tr>
+        <tr>
+            <td>Volume:</td>
+            <td id="state-volume"></td>
+        </tr>
+        <tr>
+            <td>Playing:</td>
+            <td id="state-playing"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
