@@ -5,8 +5,8 @@ on:
     branches: [ ]
 
 jobs:
-  test:
-    name: "Unit Tests"
+  backend_test:
+    name: "Backend"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,3 +19,15 @@ jobs:
           arguments: "clean test"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
+  frontend_test:
+    name: "Frontend"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.4
+        with:
+          node-version: 12
+      - name: Install Packages
+        run: npm i
+      - name: Build Production
+        run: npm run build:prod
