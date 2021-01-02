@@ -30,4 +30,4 @@ jobs:
       - name: Install Packages
         run: npm i
       - name: Build Production
-        run: npm run build:prod
+        run: npm run build

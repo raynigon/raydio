@@ -29,3 +29,7 @@ build
 
 # InteliJ
 .idea
+
+# Development
+development_db.sqlite
+src/main/resources/static
