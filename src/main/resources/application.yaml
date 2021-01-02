@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: "jdbc:sqlite:development_db.sqlite"
+  jpa:
+    database-platform: "org.sqlite.hibernate.dialect.SQLiteDialect"
