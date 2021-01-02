@@ -7,5 +7,5 @@
 >Raydio is a simple web radio client
 
 <a href="https://rayd.io/" target="_blank">
-    <img src="./frontend/assets/logo.png" width="250" height="250">
+    <img src="./frontend/src/assets/logo.png" width="250" height="250">
 </a>
