@@ -16,24 +16,18 @@ jobs:
       - name: Build Docker Container
         uses: eskatos/gradle-command-action@v1.3.3
         with:
-          arguments: "jibDockerBuild"
+          arguments: "jibDockerBuild -x test"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
-      - name: Test Docker Container
-        run: |
-          docker run --rm -d -p 8080:8080 raydio
-          counter=10
-          while [ $counter -ge 0 ]
-          do
-            curl http://localhost:8080/api/v1/webradio/
-            if ($? == 0)
-            then
-            	exit 0
-            fi
-            sleep 1
-            counter=$(( $counter - 1 ))
-          done
-          exit 1
+      - name: Start Container (SmokeTest)
+        run: docker run --rm -d -p 8080:8080 raydio
+      - name: Check Container URL
+        uses: jtalk/url-health-check-action@v1.2
+        with:
+          url: http://localhost:8080/
+          follow-redirect: no
+          max-attempts: 5
+          retry-delay: 1s
   build_packages:
     name: "Build Linux Packages"
     runs-on: ubuntu-latest
@@ -42,10 +36,10 @@ jobs:
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: '11'
-      - name: "Build .deb, .rpm Packages"
+      - name: "Build Packages (.deb, .rpm)"
         uses: eskatos/gradle-command-action@v1.3.3
         with:
-          arguments: "buildDeb buildRpm"
+          arguments: "buildDeb buildRpm -x test"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
       - name: Upload Packages
