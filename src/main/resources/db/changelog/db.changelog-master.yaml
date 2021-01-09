@@ -1,1 +1,4 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - include:
+      file: dbcl-2020.01.09_09.52.yaml
+      relativeToChangelogFile: true

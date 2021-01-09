@@ -4,9 +4,11 @@ plugins {
     id("groovy")
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
+    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
     kotlin("plugin.jpa") version "1.4.21"
+    kotlin("kapt") version "1.4.21"
 }
 
 group = "io.rayd"
@@ -21,12 +23,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core")
     implementation("org.xerial:sqlite-jdbc:3.34.0")
     implementation("com.github.gwenn:sqlite-dialect:0.1.1")
+    implementation("org.mapstruct:mapstruct:1.4.1.Final")
     // Sound Libraries
     implementation("com.googlecode.soundlibs:mp3spi:1.9.5.4")
     testImplementation("org.testcontainers:spock:1.15.1")
@@ -34,7 +38,11 @@ dependencies {
     testImplementation("org.spockframework:spock-core:2.0-M4-groovy-3.0")
     testImplementation("org.spockframework:spock-spring:2.0-M4-groovy-3.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.github.tomakehurst:wiremock:2.27.2")
+    testImplementation("com.github.tomjankes:wiremock-groovy:0.2.0")
 
+    // Annotation Processor
+    kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,19 +1,34 @@
 package io.rayd.backend.audio.output
 
-import io.rayd.backend.MediaSource
-import io.rayd.backend.WebRadioStation
+import io.rayd.backend.audio.source.MediaSource
+import io.rayd.backend.webradio.model.WebRadioStation
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Conditional
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import java.io.BufferedInputStream
 import java.io.InputStream
 import javax.sound.sampled.*
 
-@Service
-class AudioPlayer {
-    private val logger = LoggerFactory.getLogger(javaClass)
-    private var currentProcessor: AudioProcessor? = null
+interface AudioPlayer {
+    fun play(source: MediaSource)
+    fun stop()
+    fun current(): MediaSource?
+}
 
-    fun play(source: MediaSource) {
+@Service
+@Profile("!test")
+class DefaultAudioPlayer(
+        private val properties: AudioPlayerProperties
+) : AudioPlayer {
+    private val logger = LoggerFactory.getLogger(javaClass)
+
+    // Ensure there is only one current processor
+    companion object {
+        private var currentProcessor: AudioProcessor? = null
+    }
+
+    override fun play(source: MediaSource) {
         currentProcessor?.stop()
         try {
             val inputAudioStream = AudioSystem.getAudioInputStream(getStream(source))
@@ -23,16 +38,25 @@ class AudioPlayer {
             val line = (AudioSystem.getLine(lineInfo) as SourceDataLine?)
                     ?: throw RuntimeException("AudioLine not found")
             val convertedAudioStream = AudioSystem.getAudioInputStream(audioFormat, inputAudioStream)
-            currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line)
+            currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line, source)
             currentProcessor?.start()
         } catch (e: Throwable) {
             logger.error("Unable to start Stream", e)
         }
     }
 
+    override fun stop() {
+        currentProcessor?.stop()
+        currentProcessor = null
+    }
+
+    override fun current(): MediaSource? {
+        return currentProcessor?.source
+    }
+
     private fun getStream(source: MediaSource): InputStream {
         val stream = (source as WebRadioStation).streamUrl.openStream()
-        return BufferedInputStream(stream, 4 * 1024 * 1024) // 4 MB Buffer
+        return BufferedInputStream(stream, properties.bufferSize.toInt())
     }
 
     private fun getOutFormat(inFormat: AudioFormat): AudioFormat {
@@ -40,18 +64,13 @@ class AudioPlayer {
         val rate = inFormat.sampleRate
         return AudioFormat(AudioFormat.Encoding.PCM_SIGNED, rate, 16, ch, ch * 2, rate, false)
     }
-
-    fun stop() {
-        currentProcessor?.stop()
-        currentProcessor = null
-    }
-
 }
 
 class AudioProcessor(
         private val audioStream: AudioInputStream,
         private val audioFormat: AudioFormat,
-        private val line: SourceDataLine
+        private val line: SourceDataLine,
+        val source: MediaSource
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -71,7 +90,7 @@ class AudioProcessor(
     fun stop() {
         thread.interrupt()
         thread.join(250)
-        if (thread.isAlive){
+        if (thread.isAlive) {
             thread.stop()
         }
         line.close()

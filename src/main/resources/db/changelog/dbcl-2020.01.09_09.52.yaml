@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: dbcl-2020.01.09_09.52.yaml
+      author: Simon Schneider
+      changes:
+        - createTable:
+            tableName: webradio_station
+            columns:
+            - column:
+                name: id
+                type: VARCHAR(255)
+                constraints: 
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: name
+                type: VARCHAR(255)
+                constraints: 
+                  nullable: false
+            - column:
+                name: stream
+                type: VARCHAR(255)
+                constraints: 
+                  nullable: false
+            - column:
+                name: logo
+                type: TEXT

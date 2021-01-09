@@ -33,3 +33,4 @@ build
 # Development
 development_db.sqlite
 src/main/resources/static
+/.vscode/

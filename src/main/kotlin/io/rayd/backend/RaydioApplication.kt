@@ -1,6 +1,8 @@
 package io.rayd.backend
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableAsync
 import java.io.BufferedInputStream
@@ -11,6 +13,7 @@ import javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED
 
 @EnableAsync
 @SpringBootApplication
+@ConfigurationPropertiesScan
 class RaydioBackendApplication
 
 fun main(args: Array<String>) {
