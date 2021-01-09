@@ -1,0 +1,35 @@
+ospackage {
+    packageName = "raydio"
+    release = 1
+    user = "raydio"
+    summary = "SUMMARY"
+    url = "https://rayd.io"
+    packager = "Developer <development@rayd.io>"
+    vendor = "Raynigon"
+    buildHost = 'https://github.com'
+
+
+    requires('openjdk-11-jdk')
+
+    into '/opt/raydio'
+
+    from(jar.outputs.files) {
+        into '/opt/raydio'
+        rename 'raydio.*\\.jar', 'raydio.jar'
+    }
+
+    customFields << [
+            'Commit-ID' : System.getenv("GITHUB_SHA"),
+            'Build-Job' : System.getenv("GITHUB_WORKFLOW"),
+            'Build-Host': 'https://github.com',
+            'Owner'     : 'Developer <development@rayd.io>'
+    ]
+}
+
+buildRpm {
+    dependsOn(tasks.getByName("build"))
+}
+
+buildDeb {
+    dependsOn(tasks.getByName("build"))
+}

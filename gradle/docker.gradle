@@ -1,0 +1,20 @@
+jib {
+    from {
+        image = "openjdk:11-slim"
+    }
+    to {
+        image = "raydio"
+        tags = [System.getenv("GITHUB_SHA") == null ? "unknown" : System.getenv("GITHUB_SHA")]
+    }
+    container {
+        mainClass = "io.rayd.backend.RaydioApplicationKt"
+        ports = ["8080"]
+        appRoot = "/raydio/"
+        environment = [
+                "SPRING_DATASOURCE_URL": "jdbc:sqlite:/data/raydio.sqlite"
+        ]
+        volumes = [
+                "/data/"
+        ]
+    }
+}
