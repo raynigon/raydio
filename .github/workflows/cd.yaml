@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: '11'
-      - name: Run Gradle Tests
+      - name: Build Docker Container
         uses: eskatos/gradle-command-action@v1.3.3
         with:
           arguments: "jibDockerBuild"
@@ -42,14 +42,14 @@ jobs:
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: '11'
-      - name: Run Gradle Tests
+      - name: "Build .deb, .rpm Packages"
         uses: eskatos/gradle-command-action@v1.3.3
         with:
           arguments: "buildDeb buildRpm"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
-      - name: Upload artifact
+      - name: Upload Packages
         uses: actions/upload-artifact@v1.0.0
         with:
           name: "Linux Packages"
-          path: "build/ditributions/"
+          path: "build/distributions/"
