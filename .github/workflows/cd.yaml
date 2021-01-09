@@ -5,6 +5,25 @@ on:
     branches: [ main ]
 
 jobs:
+  build_jar:
+    name: "Build Jar Archive"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1.4.3
+        with:
+          java-version: '11'
+      - name: Build Jar Archive
+        uses: eskatos/gradle-command-action@v1.3.3
+        with:
+          arguments: "build -x test"
+          wrapper-cache-enabled: true
+          dependencies-cache-enabled: true
+      - name: Jar Archive
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: "Jar Archive"
+          path: "build/libs/"
   build_docker:
     name: "Build Docker Container"
     runs-on: ubuntu-latest
@@ -19,17 +38,6 @@ jobs:
           arguments: "jibDockerBuild -x test"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
-      - name: Start Container (SmokeTest)
-        run: |
-          docker run --rm -d -p 8080:8080 raydio
-          sleep 5
-      - name: Check Container URL
-        uses: jtalk/url-health-check-action@v1.2
-        with:
-          url: http://localhost:8080/
-          follow-redirect: no
-          max-attempts: 5
-          retry-delay: 1s
   build_packages:
     name: "Build Linux Packages"
     runs-on: ubuntu-latest
