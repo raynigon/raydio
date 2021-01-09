@@ -1,6 +1,10 @@
 package io.rayd.backend.webradio.mapper
 
-import io.rayd.backend.webradio.dto.*
+import io.rayd.backend.webradio.dto.CreateStationResponse
+import io.rayd.backend.webradio.dto.StationDetailsResponse
+import io.rayd.backend.webradio.dto.StationListItem
+import io.rayd.backend.webradio.dto.StationListResponse
+import io.rayd.backend.webradio.dto.UpdateStationResponse
 import io.rayd.backend.webradio.model.WebRadioStation
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -22,5 +26,4 @@ abstract class WebRadioStationMapper {
     fun mapToListResponse(stations: List<WebRadioStation>): StationListResponse {
         return StationListResponse(stations.map { mapToListItemResponse(it) })
     }
-
 }

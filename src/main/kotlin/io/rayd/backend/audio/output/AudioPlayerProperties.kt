@@ -8,5 +8,5 @@ const val MEGABYTE: Long = 1024 * 1024
 @ConstructorBinding
 @ConfigurationProperties("raydio.player.buffer")
 data class AudioPlayerProperties(
-        val bufferSize: Long = 4 * MEGABYTE
+    val bufferSize: Long = 4 * MEGABYTE
 )

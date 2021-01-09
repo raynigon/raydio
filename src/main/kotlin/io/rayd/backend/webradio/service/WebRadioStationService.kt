@@ -11,9 +11,8 @@ import org.springframework.util.Base64Utils
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.URL
-import java.util.*
+import java.util.UUID
 import javax.imageio.ImageIO
-
 
 interface WebRadioStationService {
     fun create(request: CreateStationRequest): WebRadioStation
@@ -25,16 +24,18 @@ interface WebRadioStationService {
 
 @Service
 class DefaultWebRadioStationService(
-        private val repository: WebRadioStationRepository
+    private val repository: WebRadioStationRepository
 ) : WebRadioStationService {
 
     override fun create(request: CreateStationRequest): WebRadioStation {
-        return repository.save(WebRadioStation(
+        return repository.save(
+            WebRadioStation(
                 id = UUID.randomUUID(),
                 name = request.name,
                 streamUrl = URL(request.stream),
                 logo = downloadLogo(request.logo)
-        ))
+            )
+        )
     }
 
     @Transactional
@@ -74,7 +75,6 @@ class DefaultWebRadioStationService(
     override fun list(): List<WebRadioStation> {
         return repository.findAll()
     }
-
 
     private fun downloadLogo(logo: String?): String? {
         if (logo == null) return null

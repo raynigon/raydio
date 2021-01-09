@@ -3,12 +3,15 @@ package io.rayd.backend.audio.output
 import io.rayd.backend.audio.source.MediaSource
 import io.rayd.backend.webradio.model.WebRadioStation
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Conditional
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import java.io.BufferedInputStream
 import java.io.InputStream
-import javax.sound.sampled.*
+import javax.sound.sampled.AudioFormat
+import javax.sound.sampled.AudioInputStream
+import javax.sound.sampled.AudioSystem
+import javax.sound.sampled.DataLine
+import javax.sound.sampled.SourceDataLine
 
 interface AudioPlayer {
     fun play(source: MediaSource)
@@ -19,7 +22,7 @@ interface AudioPlayer {
 @Service
 @Profile("!test")
 class DefaultAudioPlayer(
-        private val properties: AudioPlayerProperties
+    private val properties: AudioPlayerProperties
 ) : AudioPlayer {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -32,11 +35,11 @@ class DefaultAudioPlayer(
         currentProcessor?.stop()
         try {
             val inputAudioStream = AudioSystem.getAudioInputStream(getStream(source))
-                    ?: return // TODO throw an error
+                ?: return // TODO throw an error
             val audioFormat = getOutFormat(inputAudioStream.format)
             val lineInfo = DataLine.Info(SourceDataLine::class.java, audioFormat)
             val line = (AudioSystem.getLine(lineInfo) as SourceDataLine?)
-                    ?: throw RuntimeException("AudioLine not found")
+                ?: throw RuntimeException("AudioLine not found")
             val convertedAudioStream = AudioSystem.getAudioInputStream(audioFormat, inputAudioStream)
             currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line, source)
             currentProcessor?.start()
@@ -67,10 +70,10 @@ class DefaultAudioPlayer(
 }
 
 class AudioProcessor(
-        private val audioStream: AudioInputStream,
-        private val audioFormat: AudioFormat,
-        private val line: SourceDataLine,
-        val source: MediaSource
+    private val audioStream: AudioInputStream,
+    private val audioFormat: AudioFormat,
+    private val line: SourceDataLine,
+    val source: MediaSource
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
