@@ -20,7 +20,9 @@ jobs:
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
       - name: Start Container (SmokeTest)
-        run: docker run --rm -d -p 8080:8080 raydio
+        run: |
+          docker run --rm -d -p 8080:8080 raydio
+          sleep 5
       - name: Check Container URL
         uses: jtalk/url-health-check-action@v1.2
         with:
