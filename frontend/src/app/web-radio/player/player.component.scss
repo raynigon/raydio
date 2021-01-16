@@ -1,0 +1,17 @@
+.station-card {
+    margin-top: 25px;
+    background-color: gray;
+}
+.station-image{
+    background-color: white;
+    padding: 5px;
+    margin: 0px -15px;
+    width: calc(100% + 30px);
+    max-height: 250px;
+}
+.station-actions {
+    position: relative;
+    width: 50px;
+    float: right;
+    top: -25px;
+}

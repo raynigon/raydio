@@ -12,4 +12,9 @@ export class WebRadioPlayerService {
     return this.http.post(`/api/v1/webradio/${stationId}/play`, null)
       .toPromise()
   }
+
+  public stop(stationId: string): Promise<any> {
+    return this.http.post(`/api/v1/webradio/${stationId}/stop`, null)
+      .toPromise()
+  }
 }

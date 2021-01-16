@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbCarousel, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import { AppStateService } from 'src/app/raydio/app-state/app-state.service';
 import { WebRadioPlayerService } from '../web-radio-player/web-radio-player.service';
 import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-repository.service';
 
@@ -11,6 +13,7 @@ import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-rep
 export class PlayerComponent implements OnInit {
 
   public $stations: Observable<any>
+  public state: any
   public station = {
     "name": "",
     "stream": "",
@@ -19,17 +22,34 @@ export class PlayerComponent implements OnInit {
 
   constructor(
     private playerService: WebRadioPlayerService,
-    private repository: WebRadioRepositoryService
+    private repository: WebRadioRepositoryService,
+    appStateService: AppStateService
   ) { 
     this.$stations = null as any
+    appStateService.$state.subscribe(event => {
+      this.state = event;
+      console.log(event);
+    })
   }
 
   ngOnInit(): void {
     this.$stations = this.repository.listStations()
   }
 
-  play(stationId: string) {
-    this.playerService.play(stationId)
+  async play(stationId: string) {
+    try{
+      await this.playerService.play(stationId)
+    }catch(exception){
+      console.error(exception)
+    }
+  }
+
+  async stop(stationId: string) {
+    try{
+      await this.playerService.stop(stationId)
+    }catch(exception){
+      console.error(exception)
+    }
   }
 
   addStation(){

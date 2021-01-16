@@ -1,27 +1,18 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Logo</th>
-      <th scope="col">Name</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let station of $stations | async" [attr.stationId]="station.id">
-      <td>
-        <img [src]="station.logo" style="max-width:100px;max-height: 50px;height: 50px;object-fit: contain;" />
-      </td>
-      <td>
-        <span>{{ station.name }}</span>
-      </td>
-      <td>
-        <button class="btn btn-primary" (click)="play(station.id)">
-          <i-bs name="play-fill"></i-bs>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div *ngFor="let station of $stations | async" class="container-sm card station-card">
+  <img class="card-img-top station-image" [src]="station.logo" style="object-fit: contain;"/>
+  <div class="card-body">
+    <h5 class="card-title">{{ station.name }}</h5>
+    <div class="station-actions">
+      <button *ngIf="state?.source?.id != station.id" class="btn btn-primary" (click)="play(station.id)">
+        <i-bs name="play-fill"></i-bs>
+      </button>
+      <button *ngIf="state?.source?.id == station.id" class="btn btn-primary" (click)="stop(station.id)">
+        <i-bs name="pause-fill"></i-bs>
+      </button>
+    </div>
+  </div>
+</div>
+
 
 <div class="container">
   <div class="form-group">

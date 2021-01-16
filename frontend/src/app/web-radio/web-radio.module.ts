@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WebRadioPlayerService } from './web-radio-player/web-radio-player.service';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
     NgxBootstrapIconsModule.pick(allIcons),
   ],
   exports: [

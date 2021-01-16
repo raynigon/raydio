@@ -1,5 +1,8 @@
 package io.rayd.backend.audio.output
 
+import io.rayd.backend.application.ApplicationState
+import io.rayd.backend.application.ApplicationStateService
+import io.rayd.backend.application.PlayerType
 import io.rayd.backend.audio.source.MediaSource
 import io.rayd.backend.webradio.model.WebRadioStation
 import org.slf4j.LoggerFactory
@@ -22,7 +25,8 @@ interface AudioPlayer {
 @Service
 @Profile("!test")
 class DefaultAudioPlayer(
-    private val properties: AudioPlayerProperties
+    private val properties: AudioPlayerProperties,
+    private val stateService: ApplicationStateService
 ) : AudioPlayer {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -43,6 +47,7 @@ class DefaultAudioPlayer(
             val convertedAudioStream = AudioSystem.getAudioInputStream(audioFormat, inputAudioStream)
             currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line, source)
             currentProcessor?.start()
+            stateService.update(ApplicationState(PlayerType.WEB_RADIO, source))
         } catch (e: Throwable) {
             logger.error("Unable to start Stream", e)
         }
@@ -51,6 +56,7 @@ class DefaultAudioPlayer(
     override fun stop() {
         currentProcessor?.stop()
         currentProcessor = null
+        stateService.update(ApplicationState())
     }
 
     override fun current(): MediaSource? {
@@ -93,11 +99,12 @@ class AudioProcessor(
     fun stop() {
         thread.interrupt()
         thread.join(250)
+        line.close()
+        audioStream.close()
+        thread.join(250)
         if (thread.isAlive) {
             thread.stop()
         }
-        line.close()
-        audioStream.close()
     }
 
     private fun run() {
