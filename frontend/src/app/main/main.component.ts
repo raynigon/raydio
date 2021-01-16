@@ -6,6 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class AppComponent {
-  title = 'raydio';
+  menuItems = [
+    {
+      title: "Webradio",
+      link: "/webradio"
+    },
+    {
+      title: "Airplay",
+      link: "/airplay"
+    },
+    {
+      title: "Settings",
+      link: "/settings"
+    },
+  ]
   isMenuCollapsed = true;
 }

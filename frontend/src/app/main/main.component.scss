@@ -1,0 +1,29 @@
+.btn-toggle-menu{
+    transition: transform 250ms ease-in-out;
+    transform: rotate(0deg);
+    @media(min-width: 574px) {
+        display: none;
+    }
+    &[menu="open"]{
+        transform: rotate(90deg);
+    }
+}
+
+.horizontal-menu{
+    display: none;
+    @media(min-width: 574px) {
+        display: block;
+    }
+}
+
+.vertical-menu{
+    z-index: 100000;
+    width: 100vw;
+    padding-bottom: 15px;
+    background-color: white;
+    position: absolute;
+    display: none;
+    &[menu="open"]{
+        display: block;
+    }
+}

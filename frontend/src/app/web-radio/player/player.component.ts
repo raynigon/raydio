@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbCarousel, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AppStateService } from 'src/app/raydio/app-state/app-state.service';
 import { WebRadioPlayerService } from '../web-radio-player/web-radio-player.service';
@@ -23,17 +22,17 @@ export class PlayerComponent implements OnInit {
   constructor(
     private playerService: WebRadioPlayerService,
     private repository: WebRadioRepositoryService,
-    appStateService: AppStateService
+    private appStateService: AppStateService
   ) { 
     this.$stations = null as any
-    appStateService.$state.subscribe(event => {
-      this.state = event;
-      console.log(event);
-    })
   }
 
   ngOnInit(): void {
     this.$stations = this.repository.listStations()
+    this.appStateService.$state.subscribe((event: any) => {
+      this.state = event;
+      console.log(event);
+    })
   }
 
   async play(stationId: string) {

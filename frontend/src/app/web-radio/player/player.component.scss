@@ -1,17 +1,30 @@
+.station-label {
+  color: black;
+}
+
+.station-label-playing {
+  justify-self: flex-start;
+  color: black;
+  margin-right: 10px;
+}
+
 .station-card {
-    margin-top: 25px;
-    background-color: gray;
+  margin: 25px auto 0px;
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 500px;
 }
-.station-image{
-    background-color: white;
-    padding: 5px;
-    margin: 0px -15px;
-    width: calc(100% + 30px);
-    max-height: 250px;
+
+.station-logo {
+  object-fit: contain;
+  padding: 25px;
+  background-color: white;
+  box-sizing: border-box;
+  height: 200px;
 }
-.station-actions {
-    position: relative;
-    width: 50px;
-    float: right;
-    top: -25px;
+
+.station-action {
+  float: right;
+  position: relative;
+  top: -40px;
 }

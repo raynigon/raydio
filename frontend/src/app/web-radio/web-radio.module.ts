@@ -4,9 +4,11 @@ import { PlayerComponent } from './player/player.component';
 import { WebRadioRepositoryService } from './web-radio-repository/web-radio-repository.service';
 import { HttpClientModule } from '@angular/common/http';
 import { WebRadioPlayerService } from './web-radio-player/web-radio-player.service';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    NgbModule,
-    NgxBootstrapIconsModule.pick(allIcons),
+    MatTabsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   exports: [
     PlayerComponent

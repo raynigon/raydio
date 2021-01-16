@@ -1,20 +1,36 @@
-<div *ngFor="let station of $stations | async" class="container-sm card station-card">
-  <img class="card-img-top station-image" [src]="station.logo" style="object-fit: contain;"/>
-  <div class="card-body">
-    <h5 class="card-title">{{ station.name }}</h5>
-    <div class="station-actions">
-      <button *ngIf="state?.source?.id != station.id" class="btn btn-primary" (click)="play(station.id)">
-        <i-bs name="play-fill"></i-bs>
-      </button>
-      <button *ngIf="state?.source?.id == station.id" class="btn btn-primary" (click)="stop(station.id)">
-        <i-bs name="pause-fill"></i-bs>
-      </button>
-    </div>
-  </div>
-</div>
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab *ngFor="let station of $stations | async" class="station-tab">
+    <ng-template mat-tab-label>
+      <mat-icon *ngIf="station.id == state?.source?.id" class="station-label-playing">play_circle_outline</mat-icon>
+      <span class="station-label">{{ station.name }}</span>
+    </ng-template>
+    <mat-card class="station-card">
+      <img
+        mat-card-image
+        [src]="station.logo"
+        class="station-logo"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ station.name }}</h5>
+        <button
+          class="station-action"
+          mat-icon-button
+          (click)="
+            station.id == state?.source?.id
+              ? stop(station.id)
+              : play(station.id)
+          "
+        >
+          <mat-icon>{{
+            station.id == state?.source?.id ? "pause" : "play_arrow"
+          }}</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
 
-
-<div class="container">
+<!--<div class="container">
   <div class="form-group">
     <label for="stationNameInput">Name</label>
     <input type="text" class="form-control" id="stationNameInput" [(ngModel)]="station.name"/>
@@ -28,7 +44,7 @@
     <input type="url" class="form-control" id="stationLogoUrlInput" [(ngModel)]="station.logo" />
   </div>
   <button type="button" class="btn btn-primary"(click)="addStation()">
-    <i-bs name="plus"></i-bs>
+    PLUS_SIGN
     <span>Add</span>
   </button>
-</div>
+</div>-->
