@@ -16,6 +16,13 @@ export class WebRadioRepositoryService {
   }
 
   public addStation(station: any): Promise<any> {
+    if (station.logo === ""){
+      station.logo = null;
+    }
     return this.http.post("/api/v1/webradio/", station).toPromise()
+  }
+
+  public deleteStation(stationId: string): Promise<any> {
+    return this.http.delete(`/api/v1/webradio/${stationId}`).toPromise()
   }
 }

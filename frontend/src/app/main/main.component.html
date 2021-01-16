@@ -16,6 +16,8 @@
   class="vertical-menu mat-elevation-z2"
   [attr.menu]="isMenuCollapsed ? 'closed' : 'open'"
 >
-  <button *ngFor="let item of menuItems" mat-button class="btn-menu-item" [routerLink]="item.link">{{ item.title }}</button><br />
+<mat-list class="vertical-menu-list">
+  <a *ngFor="let item of menuItems" mat-list-item [routerLink]="item.link" (click)="isMenuCollapsed=true">{{ item.title }}</a>
+</mat-list>
 </div>
 <router-outlet></router-outlet>

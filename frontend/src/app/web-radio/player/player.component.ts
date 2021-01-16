@@ -13,11 +13,6 @@ export class PlayerComponent implements OnInit {
 
   public $stations: Observable<any>
   public state: any
-  public station = {
-    "name": "",
-    "stream": "",
-    "logo": ""
-  }
 
   constructor(
     private playerService: WebRadioPlayerService,
@@ -51,7 +46,4 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  addStation(){
-    this.repository.addStation(this.station)
-  }
 }

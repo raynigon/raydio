@@ -9,22 +9,28 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { WebRadioSettingsComponent } from './web-radio-settings/web-radio-settings.component';
 
 @NgModule({
   declarations: [
-    PlayerComponent
+    PlayerComponent,
+    WebRadioSettingsComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
+    MatCardModule,
     MatTabsModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatInputModule,
   ],
   exports: [
-    PlayerComponent
+    PlayerComponent,
+    WebRadioSettingsComponent
   ],
   providers: [
     WebRadioRepositoryService,

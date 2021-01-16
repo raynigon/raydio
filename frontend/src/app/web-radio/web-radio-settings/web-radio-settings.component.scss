@@ -1,0 +1,32 @@
+.container {
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.card {
+  box-sizing: border-box;
+  width: 100vw;
+  margin-top: 25px;
+  @media (min-width: 768px) {
+    width: 750px;
+    margin: 25px;
+  }
+}
+
+.station-table {
+  width: 100%;
+  .station-logo-column img {
+    width: 100px;
+    height: 50px;
+    object-fit: contain;
+  }
+  .actions-column {
+    text-align: right;
+  }
+}
+
+.create-station-field {
+  width: 100%;
+}

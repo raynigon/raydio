@@ -1,0 +1,65 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Radio Stations</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="station-table">
+        <tr *ngFor="let station of $stations | async">
+          <td>
+            {{ station.name }}
+          </td>
+          <td class="station-logo-column">
+            <img [src]="station.logo" />
+          </td>
+          <td class="actions-column">
+            <button mat-icon-button (click)="deleteStation(station.id)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Create Station</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="create-station-field">
+        <mat-label>Station Name</mat-label>
+        <input
+          matInput
+          placeholder="Name"
+          [(ngModel)]="station.name"
+          required="true"
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="create-station-field">
+        <mat-label>MP3 Stream</mat-label>
+        <input
+          matInput
+          type="url"
+          placeholder="Stream"
+          [(ngModel)]="station.stream"
+          required="true"
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="create-station-field">
+        <mat-label>Logo URL</mat-label>
+        <input
+          matInput
+          type="url"
+          placeholder="Logo"
+          [(ngModel)]="station.logo"
+        />
+      </mat-form-field>
+      <br />
+      <button mat-button (click)="addStation()">
+        <mat-icon>add</mat-icon>
+        <span>Create Station</span>
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

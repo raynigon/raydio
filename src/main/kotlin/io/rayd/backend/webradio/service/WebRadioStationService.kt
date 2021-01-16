@@ -73,7 +73,7 @@ class DefaultWebRadioStationService(
     }
 
     override fun list(): List<WebRadioStation> {
-        return repository.findAll()
+        return repository.findAllByOrderByName()
     }
 
     private fun downloadLogo(logo: String?): String? {

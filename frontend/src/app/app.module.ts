@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { SettingsModule } from './settings/settings.module';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -17,12 +19,14 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
-    WebRadioModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatListModule,
+    AppRoutingModule,
+    WebRadioModule,
+    SettingsModule,  
   ],
   providers: [],
   bootstrap: [AppComponent]
