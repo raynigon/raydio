@@ -3,7 +3,7 @@
 RAYDIO_DATA_DIRECTORY=/opt/raydio/data/
 SQLITE_DATABASE_FILE=/opt/raydio/data/raydio.sqlite
 
-if [[ -f "$SQLITE_DATABASE_FILE" ]]; then
+if [ -f "$SQLITE_DATABASE_FILE" ]; then
   rm "$SQLITE_DATABASE_FILE"
 fi
 

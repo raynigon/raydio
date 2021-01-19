@@ -8,6 +8,7 @@ mkdir -p /opt/raydio/data
 
 # Create User
 adduser --system $RAYDIO_USERNAME
+chown -R $RAYDIO_USERNAME /opt/raydio/
 
 # Register and Start Service
 systemctl start $RAYDIO_SERVICE_NAME
