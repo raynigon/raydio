@@ -8,22 +8,40 @@ ospackage {
     vendor = "Raynigon"
     buildHost = 'https://github.com'
 
-
-    requires('openjdk-11-jdk')
-
-    into '/opt/raydio'
-
-    from(jar.outputs.files) {
-        into '/opt/raydio'
-        rename 'raydio.*\\.jar', 'raydio.jar'
-    }
-
     customFields << [
             'Commit-ID' : System.getenv("GITHUB_SHA"),
             'Build-Job' : System.getenv("GITHUB_WORKFLOW"),
             'Build-Host': 'https://github.com',
             'Owner'     : 'Developer <development@rayd.io>'
     ]
+
+    requires('coreutils')
+    requires('openjdk-11-jdk')
+
+    into '/opt/raydio'
+
+    from(jar.outputs.files) {
+        into '/opt/raydio/bin'
+        rename 'raydio.*\\.jar', 'raydio.jar'
+        fileMode 0755
+    }
+
+    from('src/dist/bash/bin') {
+        into '/opt/raydio/bin'
+        fileMode 0750
+    }
+
+    from('src/dist/config') {
+        into '/etc/raydio/'
+        fileMode 0444
+    }
+
+    from('src/dist/systemd') {
+        into '/etc/systemd/system/'
+    }
+    postInstall file('src/dist/bash/deb/post-install.sh')
+    preUninstall file('src/dist/bash/deb/pre-uninstall.sh')
+    postUninstall file('src/dist/bash/deb/post-uninstall.sh')
 }
 
 buildRpm {
