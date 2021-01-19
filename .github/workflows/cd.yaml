@@ -6,6 +6,7 @@ on:
 
 jobs:
   build_documentation:
+    name: "Build Documentation"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
