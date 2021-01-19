@@ -1,0 +1,23 @@
+site_name: Rayd.io
+site_url: "https://rayd.io/"
+plugins:
+  - search
+  - markdownextradata
+theme:
+  name: cinder
+  font: false
+  logo: 'img/logo.svg'
+  favicon: 'img/favicon.ico'
+repo_name: 'raydio'
+repo_url: 'https://github.com/raynigon/raydio'
+markdown_extensions:
+  - admonition
+  - codehilite:
+      linenums: False
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed
+nav:
+  - Home: index.md
+extra:
+  latest_version: 1.1.0

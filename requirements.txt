@@ -1,0 +1,6 @@
+mkdocs>=1.1.2
+mkdocs-material>=4.6.0
+mkdocs-markdownextradata-plugin>=0.1.1
+markdown>=3.2
+mkdocs-bootstrap4
+mkdocs-cinder
