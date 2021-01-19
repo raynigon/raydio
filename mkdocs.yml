@@ -1,5 +1,9 @@
 site_name: Rayd.io
 site_url: "https://rayd.io/"
+site_author: Simon Schneider <developer@raynigon.de>
+site_description: "Rayd.io is a simple web radio client"
+copyright: "Rayd.io is licensed under the <a href='https://github.com/raynigon/raydio/blob/master/LICENSE.md'>Apache 2.0 license</a>"
+
 plugins:
   - search
   - markdownextradata

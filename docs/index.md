@@ -1,5 +1,5 @@
 # Rayd.io
-Raydio is a simple web radio client.
+Rayd.io is a simple web radio client.
 
 <img src="/img/logo.png" width="250" height="250" alt="Rayd.io Logo">
 
