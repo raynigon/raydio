@@ -19,5 +19,6 @@ markdown_extensions:
   - pymdownx.tabbed
 nav:
   - Home: index.md
+  - Imprint: http://raynigon.de/impressum.html
 extra:
   latest_version: 1.1.0
