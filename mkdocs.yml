@@ -12,8 +12,9 @@ theme:
   font: false
   logo: 'img/logo.svg'
   favicon: 'img/favicon.ico'
-repo_name: 'raydio'
+repo_name: 'GitHub'
 repo_url: 'https://github.com/raynigon/raydio'
+edit_uri: 'edit/main/docs/'
 markdown_extensions:
   - admonition
   - codehilite:
@@ -23,6 +24,10 @@ markdown_extensions:
   - pymdownx.tabbed
 nav:
   - Home: index.md
+  - Installation:
+      - APT: installation/apt.md
+      - Docker: installation/docker.md
+  - Configuration: config.md
   - Imprint: http://raynigon.de/impressum.html
 extra:
   latest_version: 1.1.0

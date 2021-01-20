@@ -10,7 +10,7 @@ Rayd.io currently supports all MP3 Audio Streams.
 
 ## Installation
 
-### Linux Package
+### Linux APT Package
 Simply grab the latest version from [Github](https://github.com/raynigon/rayd.io)
 and install it with `apt install ./rayd_io-1_0_0.deb` and access it on 'http://localhost:8080'.
 
