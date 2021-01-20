@@ -33,6 +33,10 @@ jobs:
           arguments: "clean test"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
+      - name: Codacy Publish
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_TOKEN }}
   frontend_test:
     name: "Frontend Build"
     runs-on: ubuntu-latest
