@@ -11,3 +11,14 @@
 <a href="https://rayd.io/" target="_blank">
     <img src="./frontend/src/assets/logo.png" width="250" height="250">
 </a>
+
+## [Read the documentation here](http://rayd.io)
+
+## License
+[Apache License 2.0](LICENSE)
+
+## Copyright
+
+Copyright (c) 2021 Simon Schneider and other authors.
+
+See [contributors](https://github.com/raynigon/raydio/graphs/contributors) for all contributors.
