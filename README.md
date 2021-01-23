@@ -15,7 +15,7 @@
 ## [Read the documentation here](http://rayd.io)
 
 ## License
-[Apache License 2.0](LICENSE)
+[Apache License 2.0](LICENSE.md)
 
 ## Copyright
 
