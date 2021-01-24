@@ -1,5 +1,6 @@
 package io.rayd.backend.audio.output
 
+import io.rayd.backend.airplay.AirPlaySource
 import io.rayd.backend.application.ApplicationState
 import io.rayd.backend.application.ApplicationStateService
 import io.rayd.backend.application.PlayerType
@@ -38,13 +39,19 @@ class DefaultAudioPlayer(
     override fun play(source: MediaSource) {
         currentProcessor?.stop()
         try {
+            println(">>> MEDIA SOURCE FOUND")
             val inputAudioStream = AudioSystem.getAudioInputStream(getStream(source))
-                ?: return // TODO throw an error
+                ?: error("AudioInputStream was null")
+            println(">>> AUDIO STREAM FOUND")
             val audioFormat = getOutFormat(inputAudioStream.format)
+            println(">>> AUDIO FORMAT FOUND: $audioFormat")
             val lineInfo = DataLine.Info(SourceDataLine::class.java, audioFormat)
+            println(">>> AUDIO LINE INFO FOUND")
             val line = (AudioSystem.getLine(lineInfo) as SourceDataLine?)
-                ?: throw RuntimeException("AudioLine not found")
+                ?: error("AudioLine not found")
+            println(">>> AUDIO LINE FOUND")
             val convertedAudioStream = AudioSystem.getAudioInputStream(audioFormat, inputAudioStream)
+            println(">>> CONVERTED STREAM FOUND")
             currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line, source)
             currentProcessor?.start()
             stateService.update(ApplicationState(PlayerType.WEB_RADIO, source))
@@ -64,8 +71,16 @@ class DefaultAudioPlayer(
     }
 
     private fun getStream(source: MediaSource): InputStream {
-        val stream = (source as WebRadioStation).streamUrl.openStream()
-        return BufferedInputStream(stream, properties.bufferSize.toInt())
+        when (source) {
+            is WebRadioStation -> {
+                val stream = (source as WebRadioStation).streamUrl.openStream()
+                return BufferedInputStream(stream, properties.bufferSize.toInt())
+            }
+            is AirPlaySource -> {
+                return source.inputStream
+            }
+        }
+        error("Should not happen")
     }
 
     private fun getOutFormat(inFormat: AudioFormat): AudioFormat {

@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     jacoco
@@ -20,7 +21,9 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
+    jcenter()
     mavenCentral()
+    maven { url = URI("https://jitpack.io") }
 }
 
 dependencies {
@@ -35,8 +38,13 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.34.0")
     implementation("com.github.gwenn:sqlite-dialect:0.1.1")
     implementation("org.mapstruct:mapstruct:1.4.1.Final")
+
+    // AirPlay
+    implementation("com.github.serezhka:java-airplay-server:1.0.4")
+
     // Sound Libraries
     implementation("com.googlecode.soundlibs:mp3spi:1.9.5.4")
+
     testImplementation("org.testcontainers:spock:1.15.1")
     testImplementation("org.codehaus.groovy:groovy:3.0.7")
     testImplementation("org.spockframework:spock-core:2.0-M4-groovy-3.0")
