@@ -33,7 +33,8 @@ class DefaultWebRadioStationService(
                 id = UUID.randomUUID(),
                 name = request.name,
                 streamUrl = URL(request.stream),
-                logo = downloadLogo(request.logo)
+                logo = downloadLogo(request.logo),
+                favorite = true
             )
         )
     }

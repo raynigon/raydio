@@ -36,13 +36,15 @@ class ReadStationSpec extends Specification {
                 UUID.randomUUID(),
                 "1Live",
                 new URL("https://wdr-edge-301f-fra-ts-cdn.cast.addradio.de/wdr/1live/live/mp3/128/stream.mp3"),
-                null
+                null,
+                true
         ))
         station1 = repository.save(new WebRadioStation(
                 UUID.randomUUID(),
                 "WDR2",
                 new URL("http://wdr-wdr2-rheinland.icecast.wdr.de/wdr/wdr2/rheinland/mp3/128/stream.mp3"),
-                null
+                null,
+                true
         ))
     }
 

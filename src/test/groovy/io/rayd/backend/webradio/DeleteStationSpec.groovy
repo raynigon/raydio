@@ -38,7 +38,8 @@ class DeleteStationSpec extends Specification {
                 UUID.randomUUID(),
                 "1Live",
                 new URL("https://wdr-edge-301f-fra-ts-cdn.cast.addradio.de/wdr/1live/live/mp3/128/stream.mp3"),
-                null
+                null,
+                true
         ))
     }
 

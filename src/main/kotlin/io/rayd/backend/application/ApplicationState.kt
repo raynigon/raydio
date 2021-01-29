@@ -3,8 +3,8 @@ package io.rayd.backend.application
 import io.rayd.backend.audio.source.MediaSource
 
 data class ApplicationState(
-    val player: PlayerType = PlayerType.NONE,
-    val source: MediaSource? = null
+    val source: MediaSource? = null,
+    val player: PlayerType = source?.type ?: PlayerType.NONE,
 )
 
 enum class PlayerType {

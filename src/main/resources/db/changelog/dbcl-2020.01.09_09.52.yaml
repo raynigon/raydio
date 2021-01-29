@@ -25,3 +25,8 @@ databaseChangeLog:
             - column:
                 name: logo
                 type: TEXT
+            - column:
+                name: favorite
+                type: BOOLEAN
+                constraints:
+                  nullable: false

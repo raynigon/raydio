@@ -1,5 +1,6 @@
 package io.rayd.backend.webradio.model
 
+import io.rayd.backend.application.PlayerType
 import io.rayd.backend.audio.source.MediaSource
 import java.net.URL
 import java.util.UUID
@@ -22,5 +23,11 @@ data class WebRadioStation(
     val streamUrl: URL,
 
     @Column(name = "logo", nullable = true)
-    val logo: String?
-) : MediaSource
+    val logo: String?,
+
+    @Column(name = "favorite", nullable = true)
+    val favorite: Boolean
+) : MediaSource {
+    override val type: PlayerType
+        get() = PlayerType.WEB_RADIO
+}

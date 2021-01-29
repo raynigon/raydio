@@ -2,13 +2,12 @@ package io.rayd.backend.audio.output
 
 import io.rayd.backend.application.ApplicationState
 import io.rayd.backend.application.ApplicationStateService
-import io.rayd.backend.application.PlayerType
 import io.rayd.backend.audio.source.MediaSource
-import io.rayd.backend.webradio.model.WebRadioStation
+import io.rayd.backend.audio.source.MediaStreamFactory
+import io.rayd.backend.audio.source.StreamFactoryNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
-import java.io.BufferedInputStream
 import java.io.InputStream
 import javax.sound.sampled.AudioFormat
 import javax.sound.sampled.AudioInputStream
@@ -25,8 +24,8 @@ interface AudioPlayer {
 @Service
 @Profile("!test")
 class DefaultAudioPlayer(
-    private val properties: AudioPlayerProperties,
-    private val stateService: ApplicationStateService
+    private val stateService: ApplicationStateService,
+    private val streamFactories: List<MediaStreamFactory>
 ) : AudioPlayer {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -39,15 +38,16 @@ class DefaultAudioPlayer(
         currentProcessor?.stop()
         try {
             val inputAudioStream = AudioSystem.getAudioInputStream(getStream(source))
-                ?: return // TODO throw an error
             val audioFormat = getOutFormat(inputAudioStream.format)
             val lineInfo = DataLine.Info(SourceDataLine::class.java, audioFormat)
             val line = (AudioSystem.getLine(lineInfo) as SourceDataLine?)
-                ?: throw RuntimeException("AudioLine not found")
+                ?: throw AudioLineNotFoundException(lineInfo)
             val convertedAudioStream = AudioSystem.getAudioInputStream(audioFormat, inputAudioStream)
+
+            // Start Audio Processor
             currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line, source)
             currentProcessor?.start()
-            stateService.update(ApplicationState(PlayerType.WEB_RADIO, source))
+            stateService.update(ApplicationState(source))
         } catch (e: Throwable) {
             logger.error("Unable to start Stream", e)
         }
@@ -64,8 +64,11 @@ class DefaultAudioPlayer(
     }
 
     private fun getStream(source: MediaSource): InputStream {
-        val stream = (source as WebRadioStation).streamUrl.openStream()
-        return BufferedInputStream(stream, properties.bufferSize.toInt())
+        return streamFactories
+            .filter { it.isCompatible(source) }
+            .take(1)
+            .map { it.openStream(source) }
+            .firstOrNull() ?: throw StreamFactoryNotFoundException(source)
     }
 
     private fun getOutFormat(inFormat: AudioFormat): AudioFormat {
@@ -126,3 +129,9 @@ class AudioProcessor(
         }
     }
 }
+
+sealed class AudioPlayerException(message: String) :
+    RuntimeException(message)
+
+data class AudioLineNotFoundException(val lineInfo: DataLine.Info) :
+    AudioPlayerException("AudioLine not found, Line Class: ${lineInfo.lineClass}")

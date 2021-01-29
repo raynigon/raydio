@@ -47,6 +47,7 @@ dependencies {
 
     // Annotation Processor
     kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks.withType<KotlinCompile> {
