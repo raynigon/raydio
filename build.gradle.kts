@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     jacoco
+    id("idea")
     id("groovy")
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
@@ -47,6 +48,7 @@ dependencies {
 
     // Annotation Processor
     kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 

@@ -5,6 +5,7 @@ import io.rayd.backend.audio.source.MediaSource
 import io.rayd.backend.audio.source.MediaStreamFactory
 import io.rayd.backend.webradio.configuration.WebRadioProperties
 import io.rayd.backend.webradio.model.WebRadioStation
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
 import java.io.BufferedInputStream
 import java.io.InputStream
@@ -12,6 +13,7 @@ import java.io.InputStream
 interface WebRadioStreamFactory : MediaStreamFactory
 
 @Service
+@EnableConfigurationProperties(WebRadioProperties::class)
 class WebRadioStreamFactoryImpl(
     private val properties: WebRadioProperties
 ) : WebRadioStreamFactory {

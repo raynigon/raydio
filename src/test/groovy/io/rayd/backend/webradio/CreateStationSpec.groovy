@@ -1,6 +1,6 @@
 package io.rayd.backend.webradio
 
-import io.rayd.backend.testhelper.ResourceWireMockInitializer
+import io.rayd.backend.testhelper.DirectoryWireMockInitializer
 import io.rayd.backend.webradio.dto.CreateStationRequest
 import io.rayd.backend.webradio.dto.CreateStationResponse
 import io.rayd.backend.webradio.repository.WebRadioStationRepository
@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient
 import spock.lang.Specification
 
 @ActiveProfiles("test")
-@ContextConfiguration(initializers = [ResourceWireMockInitializer])
+@ContextConfiguration(initializers = [DirectoryWireMockInitializer])
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CreateStationSpec extends Specification {
 

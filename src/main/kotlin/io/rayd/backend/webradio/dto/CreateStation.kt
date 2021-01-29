@@ -7,7 +7,7 @@ data class CreateStationRequest(
     val name: String,
     val stream: String,
     val logo: String?,
-    val favorite: Boolean,
+    val favorite: Boolean = false,
 )
 
 data class CreateStationResponse(

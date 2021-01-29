@@ -28,5 +28,6 @@ databaseChangeLog:
             - column:
                 name: favorite
                 type: BOOLEAN
+                defaultValueBoolean: false
                 constraints:
                   nullable: false

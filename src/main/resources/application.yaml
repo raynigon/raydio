@@ -3,3 +3,7 @@ spring:
     url: "jdbc:sqlite:development_db.sqlite"
   jpa:
     database-platform: "org.sqlite.hibernate.dialect.SQLiteDialect"
+raydio:
+  webradio:
+    directory:
+      url: "https://stations.rayd.io/v1/"

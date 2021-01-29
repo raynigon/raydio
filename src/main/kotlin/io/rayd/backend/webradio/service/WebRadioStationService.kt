@@ -21,6 +21,9 @@ interface WebRadioStationService {
     fun getDetails(stationId: UUID): WebRadioStation
     fun list(): List<WebRadioStation>
     fun listFavorites(): List<WebRadioStation>
+
+    // Explicitly insert or update station
+    fun save(webRadioStation: WebRadioStation)
 }
 
 @Service
@@ -37,6 +40,15 @@ class DefaultWebRadioStationService(
                 logo = downloadLogo(request.logo),
                 favorite = true
             )
+        )
+    }
+
+    override fun save(station: WebRadioStation) {
+        repository.save(
+            if (station.logo != null)
+                station.copy(logo = downloadLogo(station.logo))
+            else
+                station
         )
     }
 
