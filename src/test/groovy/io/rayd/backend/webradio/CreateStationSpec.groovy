@@ -40,7 +40,8 @@ class CreateStationSpec extends Specification {
         def request = new CreateStationRequest(
                 "1Live",
                 "https://wdr-edge-301f-fra-ts-cdn.cast.addradio.de/wdr/1live/live/mp3/128/stream.mp3",
-                null
+                null,
+                true
         )
 
         when:
@@ -60,7 +61,8 @@ class CreateStationSpec extends Specification {
         def request = new CreateStationRequest(
                 "1Live",
                 "https://wdr-edge-301f-fra-ts-cdn.cast.addradio.de/wdr/1live/live/mp3/128/stream.mp3",
-                "$imagesUrl/test_radio_station_logo.png"
+                "$imagesUrl/test_radio_station_logo.png",
+                true
         )
 
         when:
@@ -93,7 +95,8 @@ class CreateStationSpec extends Specification {
                         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
                         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgDgNQAAAA" +
                         "PUlEQVR4Xh3KIQ7AMBQCUGgAP1Gz+9+tspmom9j/w/BCIMA/AtJ9Cm5g4EpyXLCN+UIQaa5etlTPEd1+Ch+xiAZySp67" +
-                        "wwAAAABJ@RU5ErkJggg=="
+                        "wwAAAABJ@RU5ErkJggg==",
+                true
         )
 
         when:

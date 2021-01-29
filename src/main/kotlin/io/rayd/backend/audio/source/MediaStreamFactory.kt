@@ -14,6 +14,5 @@ interface MediaStreamFactory {
 data class IncompatibleSourceException(val source: MediaSource) :
     RuntimeException("Incompatible Media Source: ${source.javaClass}")
 
-
 data class StreamFactoryNotFoundException(val source: MediaSource) :
     RuntimeException("No Stream Factory was found for Media Source: ${source.javaClass}")

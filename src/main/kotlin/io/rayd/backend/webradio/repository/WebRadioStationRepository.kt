@@ -8,4 +8,5 @@ import java.util.UUID
 @Repository
 interface WebRadioStationRepository : JpaRepository<WebRadioStation, UUID> {
     fun findAllByOrderByName(): List<WebRadioStation>
+    fun findAllByFavoriteTrueOrderByName(): List<WebRadioStation>
 }

@@ -7,5 +7,6 @@ data class StationDetailsResponse(
     val id: UUID,
     val name: String,
     val stream: URL,
-    val logo: String?
+    val logo: String?,
+    val favorite: Boolean
 )

@@ -9,5 +9,6 @@ data class StationListResponse(
 data class StationListItem(
     val id: UUID,
     val name: String,
-    val logo: String?
+    val logo: String?,
+    val favorite: Boolean,
 )

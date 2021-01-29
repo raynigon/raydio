@@ -49,7 +49,7 @@ class UpdateStationSpec extends Specification {
 
     def 'update station name'() {
         given:
-        def request = new UpdateStationRequest("Wasser", null, null)
+        def request = new UpdateStationRequest("Wasser", null, null, null)
 
         when:
         def result = patchWebRadio(station.id.toString(), request)
@@ -65,7 +65,7 @@ class UpdateStationSpec extends Specification {
 
     def 'update station stream'() {
         given:
-        def request = new UpdateStationRequest(null, "http://test.test/wasser.mp3", null)
+        def request = new UpdateStationRequest(null, "http://test.test/wasser.mp3", null, null)
 
         when:
         def result = patchWebRadio(station.id.toString(), request)
@@ -81,7 +81,7 @@ class UpdateStationSpec extends Specification {
 
     def 'update station logo with url'() {
         given:
-        def request = new UpdateStationRequest(null, null, "$imagesUrl/test_radio_station_logo.png")
+        def request = new UpdateStationRequest(null, null, "$imagesUrl/test_radio_station_logo.png", null)
 
         when:
         def result = patchWebRadio(station.id.toString(), request)
@@ -95,6 +95,21 @@ class UpdateStationSpec extends Specification {
         repository.getOne((result.body as UpdateStationResponse).id).logo.startsWith("data:image/png;base64,iVB")
     }
 
+    def 'update station logo with favorite'() {
+        given:
+        def request = new UpdateStationRequest(null, null, null, false)
+
+        when:
+        def result = patchWebRadio(station.id.toString(), request)
+
+        then:
+        result.statusCodeValue == 200
+        result.body instanceof UpdateStationResponse
+
+        and:
+        repository.existsById((result.body as UpdateStationResponse).id)
+        !repository.getOne((result.body as UpdateStationResponse).id).favorite
+    }
 
     def patchWebRadio(String stationId, UpdateStationRequest request) {
         return client.patch()

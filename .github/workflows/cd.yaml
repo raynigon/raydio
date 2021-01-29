@@ -58,7 +58,7 @@ jobs:
       - name: Build Jar Archive
         uses: eskatos/gradle-command-action@v1.3.3
         with:
-          arguments: "build -x test"
+          arguments: "build -x check"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
       - name: Jar Archive
@@ -82,7 +82,7 @@ jobs:
       - name: Build Docker Container
         uses: eskatos/gradle-command-action@v1.3.3
         with:
-          arguments: "jibDockerBuild -x test"
+          arguments: "jibDockerBuild -x check"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
   build_packages:
@@ -101,7 +101,7 @@ jobs:
       - name: "Build Packages (.deb, .rpm)"
         uses: eskatos/gradle-command-action@v1.3.3
         with:
-          arguments: "buildDeb buildRpm -x test"
+          arguments: "buildDeb buildRpm -x check"
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
       - name: Upload Packages

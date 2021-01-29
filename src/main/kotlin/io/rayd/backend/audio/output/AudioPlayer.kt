@@ -1,6 +1,5 @@
 package io.rayd.backend.audio.output
 
-import io.rayd.backend.application.ApplicationState
 import io.rayd.backend.application.ApplicationStateService
 import io.rayd.backend.audio.source.MediaSource
 import io.rayd.backend.audio.source.MediaStreamFactory
@@ -47,7 +46,7 @@ class DefaultAudioPlayer(
             // Start Audio Processor
             currentProcessor = AudioProcessor(convertedAudioStream, audioFormat, line, source)
             currentProcessor?.start()
-            stateService.update(ApplicationState(source))
+            stateService.updatePlayer(source)
         } catch (e: Throwable) {
             logger.error("Unable to start Stream", e)
         }
@@ -56,7 +55,7 @@ class DefaultAudioPlayer(
     override fun stop() {
         currentProcessor?.stop()
         currentProcessor = null
-        stateService.update(ApplicationState())
+        stateService.updatePlayer(null)
     }
 
     override fun current(): MediaSource? {

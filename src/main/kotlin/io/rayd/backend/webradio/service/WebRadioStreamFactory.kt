@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service
 import java.io.BufferedInputStream
 import java.io.InputStream
 
-interface WebRadioStreamFactory : MediaStreamFactory {
-}
+interface WebRadioStreamFactory : MediaStreamFactory
 
 @Service
 class WebRadioStreamFactoryImpl(

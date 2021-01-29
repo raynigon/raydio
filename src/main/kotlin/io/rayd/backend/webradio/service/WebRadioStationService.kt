@@ -20,6 +20,7 @@ interface WebRadioStationService {
     fun delete(stationId: UUID)
     fun getDetails(stationId: UUID): WebRadioStation
     fun list(): List<WebRadioStation>
+    fun listFavorites(): List<WebRadioStation>
 }
 
 @Service
@@ -41,7 +42,7 @@ class DefaultWebRadioStationService(
 
     @Transactional
     override fun update(stationId: UUID, request: UpdateStationRequest): WebRadioStation {
-        val station = repository.findById(stationId).orNull() ?: error("Station not found") // TODO change to exception
+        val station = repository.findById(stationId).orNull() ?: throw StationNotFoundException(stationId)
         return station.let {
             if (request.name != null) {
                 it.copy(name = request.name)
@@ -61,6 +62,12 @@ class DefaultWebRadioStationService(
                 it
             }
         }.let {
+            if (request.favorite != null) {
+                it.copy(favorite = request.favorite)
+            } else {
+                it
+            }
+        }.let {
             repository.save(it)
         }
     }
@@ -70,17 +77,21 @@ class DefaultWebRadioStationService(
     }
 
     override fun getDetails(stationId: UUID): WebRadioStation {
-        return repository.findById(stationId).orNull() ?: error("Station not found") // TODO change to exception
+        return repository.findById(stationId).orNull() ?: throw StationNotFoundException(stationId)
     }
 
     override fun list(): List<WebRadioStation> {
         return repository.findAllByOrderByName()
     }
 
+    override fun listFavorites(): List<WebRadioStation> {
+        return repository.findAllByFavoriteTrueOrderByName()
+    }
+
     private fun downloadLogo(logo: String?): String? {
         if (logo == null) return null
         if (logo.startsWith("data:image/")) return logo
-        if (!logo.startsWith("http")) error("Invalid URL") // TODO change to exception
+        if (!logo.startsWith("http")) throw DownloadLogoException(logo, "Invalid URL")
         try {
             val url = URL(logo)
             val image = ImageIO.read(url)
@@ -88,7 +99,20 @@ class DefaultWebRadioStationService(
             ImageIO.write(image, "png", bos)
             return "data:image/png;base64,${Base64Utils.encodeToString(bos.toByteArray())}"
         } catch (e: IOException) {
-            error("Unable to download Logo, $e") // TODO change to exception
+            throw DownloadLogoException(logo, "IOException occurred", e)
         }
     }
 }
+
+sealed class RadioStationException(message: String, cause: Throwable? = null) : RuntimeException(message, cause)
+
+class DownloadLogoException(
+    val logoUrl: String,
+    message: String,
+    cause: Throwable? = null
+) :
+    RadioStationException("Unable to download Logo: $message", cause)
+
+data class StationNotFoundException(
+    val stationId: UUID
+) : RadioStationException("Station not found, Station Id: $stationId")
