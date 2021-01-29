@@ -1,5 +1,6 @@
 package io.rayd.backend.testhelper
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
@@ -30,51 +31,55 @@ class DirectoryWireMockInitializer implements ApplicationContextInitializer<Conf
         def resourceUri = "wiremock.resources=http://localhost:${port}"
         TestPropertySourceUtils.addInlinedPropertiesToEnvironment(applicationContext, directoryUri, resourceUri)
 
+        ObjectMapper mapper = new ObjectMapper()
+        def bundleIndexJson = mapper.valueToTree(
+                [
+                        "version": 1,
+                        "active" : true,
+                        "bundles": [
+                                [
+                                        "id"     : "europe-1",
+                                        "name"   : "Europe",
+                                        "version": 1
+                                ]
+                        ]
+                ]
+        )
         wiremock.register(
                 get("/v1/index.json")
                         .willReturn(
                                 aResponse()
                                         .withHeader(HttpHeader.CONTENT_TYPE.lowerCaseName(), MediaType.APPLICATION_JSON_VALUE)
-                                        .withBody(
-                                                """
-{
-    "version": 1, 
-    "active": true, 
-    "bundles": [
-        {
-            "id": "europe-1",
-            "name": "Europe",
-            "version": 1
-        }
-    ]
-}""")
+                                        .withJsonBody(bundleIndexJson)
                         )
+        )
+
+        def bundleEurope1Json = mapper.valueToTree(
+                [
+                        "version" : 1,
+                        "name"    : "Europe",
+                        "stations": [
+                                [
+                                        "id"      : "e17fcb79-967f-40b4-9c12-b0d4054ea58f",
+                                        "name"    : "1Live",
+                                        "imageUrl": "http://localhost:$port/test_radio_station_logo.png".toString(),
+                                        "streams" : [
+                                                [
+                                                        "type": "mp3",
+                                                        "rate": 128,
+                                                        "url" : "http://wdr-1live-live.icecast.wdr.de/wdr/1live/live/mp3/128/stream.mp3"
+                                                ]
+                                        ]
+                                ]
+                        ]
+                ]
         )
         wiremock.register(
                 get("/v1/bundles/europe-1.json")
                         .willReturn(
                                 aResponse()
                                         .withHeader(HttpHeader.CONTENT_TYPE.lowerCaseName(), MediaType.APPLICATION_JSON_VALUE)
-                                        .withBody(
-                                                """
-{
-    "version": 1, 
-    "name": "Europe", 
-    "stations": [
-        {
-            "id": "e17fcb79-967f-40b4-9c12-b0d4054ea58f",
-            "name": "1Live",
-            "imageUrl": "http://localhost:${port}/test_radio_station_logo.png",
-            "streams": [
-                {
-                    "type": "mp3",
-                    "rate": 128,
-                    "url": "http://wdr-1live-live.icecast.wdr.de/wdr/1live/live/mp3/128/stream.mp3"
-                }
-            ]
-        }
-    ]
-}""")
+                                        .withJsonBody(bundleEurope1Json)
                         )
         )
     }
