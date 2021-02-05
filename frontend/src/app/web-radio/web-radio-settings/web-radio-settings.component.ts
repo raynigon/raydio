@@ -21,7 +21,7 @@ export class WebRadioSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.$stations = this.repository.listStations();
+    this.$stations = this.repository.listAllStations();
   }
 
   async addStation() {
@@ -31,11 +31,16 @@ export class WebRadioSettingsComponent implements OnInit {
       "stream": "",
       "logo": ""
     };
-    this.$stations = this.repository.listStations();
+    this.$stations = this.repository.listAllStations();
   }
 
   async deleteStation(stationId: string) {
     await this.repository.deleteStation(stationId);
-    this.$stations = this.repository.listStations();
+    this.$stations = this.repository.listAllStations();
+  }
+
+  async favorStation(station: any) {
+    await this.repository.updateStation(station.id, {favorite: !station.favorite});
+    this.$stations = this.repository.listAllStations();
   }
 }

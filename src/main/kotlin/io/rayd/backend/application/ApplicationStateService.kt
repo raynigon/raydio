@@ -10,6 +10,7 @@ interface ApplicationStateService {
     fun updatePlayer(source: MediaSource?)
     fun addTask(task: AppTask)
     fun removeTask(taskId: UUID)
+    fun updateTitle(title: String)
 }
 
 @Service
@@ -39,6 +40,14 @@ class ApplicationStateServiceImpl : ApplicationStateService {
 
     override fun remove(listener: ApplicationStateListener) {
         listeners.remove(listener)
+    }
+
+    override fun updateTitle(title: String) {
+        updateState(
+            latestState.copy(
+                title = title
+            )
+        )
     }
 
     private fun updateState(newState: ApplicationState) {

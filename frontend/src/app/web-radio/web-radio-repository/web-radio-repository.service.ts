@@ -15,11 +15,20 @@ export class WebRadioRepositoryService {
       .pipe(map(response => (response as any).items))
   }
 
+  public listAllStations(): Observable<any> {
+    return this.http.get("/api/v1/webradio/?favorites=false")
+      .pipe(map(response => (response as any).items))
+  }
+
   public addStation(station: any): Promise<any> {
     if (station.logo === ""){
       station.logo = null;
     }
     return this.http.post("/api/v1/webradio/", station).toPromise()
+  }
+
+  public updateStation(stationId: string, patch: any): Promise<any> {
+    return this.http.patch(`/api/v1/webradio/${stationId}`, patch).toPromise()
   }
 
   public deleteStation(stationId: string): Promise<any> {

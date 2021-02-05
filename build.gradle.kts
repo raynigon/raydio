@@ -36,6 +36,9 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.34.0")
     implementation("com.github.gwenn:sqlite-dialect:0.1.1")
     implementation("org.mapstruct:mapstruct:1.4.1.Final")
+    implementation("commons-io:commons-io:2.8.0")
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
+
     // Sound Libraries
     implementation("com.googlecode.soundlibs:mp3spi:1.9.5.4")
     testImplementation("org.testcontainers:spock:1.15.1")

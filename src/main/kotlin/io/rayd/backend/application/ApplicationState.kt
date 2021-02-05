@@ -4,6 +4,7 @@ import io.rayd.backend.audio.source.MediaSource
 import java.util.UUID
 
 data class ApplicationState(
+    val title: String? = null,
     val source: MediaSource? = null,
     val player: PlayerType = PlayerType.NONE,
     val tasks: Set<AppTask> = HashSet()

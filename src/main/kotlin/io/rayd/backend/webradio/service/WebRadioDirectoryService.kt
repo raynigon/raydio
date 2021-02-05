@@ -81,7 +81,7 @@ class WebRadioDirectoryServiceImpl(
                     id = station.id,
                     name = station.name,
                     streamUrl = stream.url,
-                    logo = station.imageUrl.toString(),
+                    logo = station.imageUrl?.toString(),
                     favorite = false
                 )
             )
