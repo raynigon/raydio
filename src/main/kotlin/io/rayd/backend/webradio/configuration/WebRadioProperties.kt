@@ -19,6 +19,6 @@ data class WebRadioProperties(
 
     @ConstructorBinding
     data class BufferProperties(
-        val size: Long = 12 * MEGABYTE
+        val size: Long = 64 * MEGABYTE
     )
 }
