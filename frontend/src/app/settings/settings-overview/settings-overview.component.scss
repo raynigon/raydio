@@ -1,9 +1,10 @@
 .settings-list {
   width: 100vw;
   margin-top: 15px;
+
   @media (min-width: 574px) {
     width: 500px;
-    margin: 15px auto 0px;
+    margin: 15px auto 0;
   }
 }
 
