@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppStateService {
+export class AppStateService implements OnDestroy {
 
   public state$: BehaviorSubject<any>;
   private source!: EventSource;
@@ -29,15 +29,15 @@ export class AppStateService {
     this.source.addEventListener('application-state-update', (event: any) => {
       try{
         const content = JSON.parse(event.data);
-        console.log("Application Event", content)
+        console.log('Application Event', content);
         this.handleEvent(content);
       }catch (exception){
         console.error(exception);
       }
     });
     this.source.onerror = (error) => {
-      console.error("An error occured in the event stream", error);
-      setTimeout(()=>this.init(), 10_000)
+      console.error('An error occured in the event stream', error);
+      setTimeout(()=>this.init(), 10_000);
     };
   }
 }

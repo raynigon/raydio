@@ -11,7 +11,7 @@ import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-rep
 export class StationSearchComponent implements OnInit {
 
   @ViewChild(StationListComponent)
-  public stationList!: StationListComponent
+  public stationList!: StationListComponent;
 
   @Output()
   public favoritesChanged: EventEmitter<any>;
@@ -25,6 +25,6 @@ export class StationSearchComponent implements OnInit {
   ngOnInit(): void {}
 
   async refresh(): Promise<void> {
-    this.stationList.refresh()
+    this.stationList.refresh();
   }
 }

@@ -4,6 +4,7 @@
   justify-content: center;
 }
 
+/* stylelint-disable no-descending-specificity */
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -115,6 +116,7 @@
     left: 56px;
   }
 }
+/* stylelint-enable no-descending-specificity */
 
 @keyframes lds-ellipsis1 {
   0% {

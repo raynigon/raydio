@@ -14,10 +14,10 @@ export class PlayerComponent implements OnInit {
   public stations!: Array<any>;
   public state: any;
   public currentStationIndex: number | null = null;
-  public activeRequest: boolean = false;
+  public activeRequest = false;
 
-  private stationSubscription!: Subscription
-  private stateSubscription!: Subscription
+  private stationSubscription!: Subscription;
+  private stateSubscription!: Subscription;
 
   constructor(
     private playerService: WebRadioPlayerService,
@@ -29,11 +29,11 @@ export class PlayerComponent implements OnInit {
     this.stations$ = this.repository.listStations();
     this.stationSubscription = this.stations$.subscribe((event: any) => {
       this.stations = event;
-      this.update()
+      this.update();
     });
     this.stateSubscription =this.appStateService.state$.subscribe((event: any) => {
       this.state = event;
-      this.update()
+      this.update();
     });
   }
 
@@ -58,8 +58,8 @@ export class PlayerComponent implements OnInit {
   }
 
   private update(): void {
-    if(!this.stations) return
-    if(!this.state || !this.state.source) return
-    this.currentStationIndex = this.stations.findIndex(item => item.id === this.state.source.id)
+    if(!this.stations) {return;}
+    if(!this.state || !this.state.source) {return;}
+    this.currentStationIndex = this.stations.findIndex(item => item.id === this.state.source.id);
   }
 }

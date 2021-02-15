@@ -8,9 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LoadingAnimationComponent implements OnInit {
 
   @Input()
-  public size: string = "big"
+  public size = 'big';
 
-  public four: Array<number> = [0, 1, 2, 3]
+  public four: Array<number> = [0, 1, 2, 3];
 
   constructor() { }
 
