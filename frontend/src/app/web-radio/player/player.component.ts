@@ -14,6 +14,7 @@ export class PlayerComponent implements OnInit {
   public stations!: Array<any>;
   public state: any;
   public currentStationIndex: number | null = null;
+  public activeRequest: boolean = false;
 
   private stationSubscription!: Subscription
   private stateSubscription!: Subscription
@@ -38,18 +39,22 @@ export class PlayerComponent implements OnInit {
 
   async play(stationId: string): Promise<void> {
     try{
+      this.activeRequest = true;
       await this.playerService.play(stationId);
     }catch (exception){
       console.error(exception);
     }
+    this.activeRequest = false;
   }
 
   async stop(stationId: string): Promise<void> {
     try{
+      this.activeRequest = true;
       await this.playerService.stop(stationId);
     }catch (exception){
       console.error(exception);
     }
+    this.activeRequest = false;
   }
 
   private update(): void {

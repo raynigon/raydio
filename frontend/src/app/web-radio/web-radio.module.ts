@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WebRadioSettingsComponent } from './web-radio-settings/web-radio-settings.component';
 import { CreateStationComponent } from './create-station/create-station.component';
 import { StationListComponent } from './station-list/station-list.component';
@@ -39,6 +40,7 @@ import { RaydioModule } from '../raydio/raydio.module';
     MatIconModule,
     MatInputModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     PlayerComponent,

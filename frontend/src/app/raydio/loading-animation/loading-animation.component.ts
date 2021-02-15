@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-loading-animation',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loading-animation.component.scss']
 })
 export class LoadingAnimationComponent implements OnInit {
+
+  @Input()
+  public size: string = "big"
+
+  public four: Array<number> = [0, 1, 2, 3]
 
   constructor() { }
 

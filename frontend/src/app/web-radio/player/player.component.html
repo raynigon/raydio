@@ -14,6 +14,7 @@
       <div class="card-body">
         <span class="card-title">{{ station.name }}</span>
         <button
+          *ngIf="!activeRequest"
           class="station-action"
           mat-icon-button
           (click)="
@@ -22,10 +23,13 @@
               : play(station.id)
           "
         >
-          <mat-icon>{{
+          <mat-icon >{{
             station.id == state?.source?.id ? "pause" : "play_arrow"
           }}</mat-icon>
         </button>
+        <div *ngIf="activeRequest" class="action-loading">
+          <app-loading-animation size="small"></app-loading-animation>
+        </div>
         <p *ngIf="station.id == state?.source?.id" class="current-title">
           <span class="payling-label">Playing:</span>
           &nbsp;
