@@ -22,4 +22,4 @@ IFS=$' '
 
 # Start Application
 cd "$PATH_TO_WORKSPACE"
-java -jar $PATH_TO_JAR >> log.txt
+java -Xms256M -Xmx1024M -jar $PATH_TO_JAR >> log.txt

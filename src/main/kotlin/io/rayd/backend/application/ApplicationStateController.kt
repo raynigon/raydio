@@ -33,7 +33,7 @@ class ApplicationStateController(
         request: WebRequest?
     ): ResponseEntity<Any> {
         logger.debug("SSE Endpoint timed out. User: ${request?.remoteUser}", exception)
-        return ResponseEntity.ok(mapOf("timeout" to "true"))
+        return ResponseEntity.noContent().build()
     }
 
     private fun register(emitter: ApplicationStateEmitter) {
