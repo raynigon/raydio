@@ -2,17 +2,15 @@ package io.rayd.backend.application
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.context.request.WebRequest
+import org.springframework.web.context.request.async.AsyncRequestTimeoutException
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 import java.util.UUID
-import org.springframework.web.context.request.WebRequest
-
-import org.springframework.web.context.request.async.AsyncRequestTimeoutException
-
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ExceptionHandler
 
 @RestController
 @RequestMapping("/api/v1/application/state/")
