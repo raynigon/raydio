@@ -9,7 +9,6 @@ import io.rayd.backend.webradio.io.IcyMetaDataStream
 import io.rayd.backend.webradio.model.WebRadioStation
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
-import java.io.BufferedInputStream
 import java.io.InputStream
 
 interface WebRadioStreamFactory : MediaStreamFactory
@@ -27,11 +26,10 @@ class WebRadioStreamFactoryImpl(
 
     override fun openStream(source: MediaSource): InputStream {
         if (!isCompatible(source)) throw IncompatibleSourceException(source)
-        val icyStream = IcyMetaDataStream(
+        return IcyMetaDataStream(
             (source as WebRadioStation).streamUrl,
             properties.buffer.size,
             stateService::updateTitle
         ).also { it.start() }
-        return BufferedInputStream(icyStream, properties.buffer.size.toInt())
     }
 }

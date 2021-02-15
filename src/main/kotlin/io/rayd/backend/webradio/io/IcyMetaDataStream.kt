@@ -51,8 +51,13 @@ class IcyMetaDataStream(
         thread.start()
     }
 
+    @Suppress("DEPRECATION")
     override fun close() {
         thread.interrupt()
+        thread.join(1000)
+        if (thread.isAlive) {
+            thread.stop()
+        }
     }
 
     fun run() {
@@ -66,6 +71,10 @@ class IcyMetaDataStream(
                     synchronized(buffer) {
                         buffer.write(buf, 0, size)
                     }
+                } catch (e: InterruptedException) {
+                    // do not catch InterruptedException
+                    // this ensures that the thread will be stopped
+                    throw e
                 } catch (e: Exception) {
                     logger.error("Handle Exception in ${this.javaClass.name}", e)
                     openStream()
