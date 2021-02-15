@@ -1,5 +1,5 @@
 <ng-container *ngIf="stations$ | async as stations; else loading">
-<mat-tab-group mat-stretch-tabs *ngIf="stations.length; else noItems" class="station-table">
+<mat-tab-group mat-stretch-tabs *ngIf="stations.length; else noItems" class="station-table" [selectedIndex]="currentStationIndex">
   <mat-tab *ngFor="let station of stations" class="station-tab">
     <ng-template mat-tab-label>
       <mat-icon *ngIf="station.id == state?.source?.id" class="station-label-playing">play_circle_outline</mat-icon>

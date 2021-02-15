@@ -120,8 +120,9 @@ class IcyMetaDataStream(
         if (size > 0) {
             val metadata = ByteArray(size)
             var offset = 0
-            while (offset < size)
+            while (offset < size) {
                 offset += stream.read(metadata, offset, size).let { if (it < 0) error("Stream EOF") else it }
+            }
             parseMetadata(String(metadata, StandardCharsets.UTF_8))
         }
     }

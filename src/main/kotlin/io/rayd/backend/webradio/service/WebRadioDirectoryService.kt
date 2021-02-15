@@ -25,7 +25,7 @@ interface WebRadioDirectoryService {
 @Service
 @EnableConfigurationProperties(WebRadioProperties::class)
 class WebRadioDirectoryServiceImpl(
-    private val webClient: WebClient = WebClient.create(),
+    private val webClient: WebClient,
     private val properties: WebRadioProperties,
     private val stateService: ApplicationStateService,
     private val stationService: WebRadioStationService,
