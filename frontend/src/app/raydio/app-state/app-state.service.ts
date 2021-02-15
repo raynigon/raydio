@@ -6,11 +6,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AppStateService {
 
-  public $state: BehaviorSubject<any>;
+  public state$: BehaviorSubject<any>;
   private source: EventSource;
 
   constructor() {
-    this.$state = new BehaviorSubject({
+    this.state$ = new BehaviorSubject({
       source: null
     });
     this.source = new EventSource('/api/v1/application/state/events');
@@ -22,10 +22,10 @@ export class AppStateService {
         console.error(exception);
       }
     });
-    this.source.onerror = (error) => this.$state.error(error);
+    this.source.onerror = (error) => this.state$.error(error);
   }
 
   public handleEvent(event: any): void {
-    this.$state.next(event);
+    this.state$.next(event);
   }
 }

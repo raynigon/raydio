@@ -34,4 +34,8 @@ export class WebRadioRepositoryService {
   public deleteStation(stationId: string): Promise<any> {
     return this.http.delete(`/api/v1/webradio/${stationId}`).toPromise();
   }
+
+  public refreshDirectory(): Promise<any> {
+    return this.http.post('/api/v1/webradio/directory/refresh', null).toPromise();
+  }
 }

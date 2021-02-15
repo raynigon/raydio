@@ -10,7 +10,7 @@ import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-rep
 })
 export class PlayerComponent implements OnInit {
 
-  public $stations: Observable<any>;
+  public stations$: Observable<any>;
   public state: any;
 
   constructor(
@@ -18,12 +18,12 @@ export class PlayerComponent implements OnInit {
     private repository: WebRadioRepositoryService,
     private appStateService: AppStateService
   ) {
-    this.$stations = null as any;
+    this.stations$ = null as any;
   }
 
   ngOnInit(): void {
-    this.$stations = this.repository.listStations();
-    this.appStateService.$state.subscribe((event: any) => {
+    this.stations$ = this.repository.listStations();
+    this.appStateService.state$.subscribe((event: any) => {
       this.state = event;
       console.log(event);
     });

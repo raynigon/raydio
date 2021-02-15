@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { StationListComponent } from '../station-list/station-list.component';
 import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-repository.service';
 
 @Component({
@@ -8,6 +9,9 @@ import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-rep
   styleUrls: ['./station-search.component.scss']
 })
 export class StationSearchComponent implements OnInit {
+
+  @ViewChild(StationListComponent)
+  public stationList!: StationListComponent
 
   @Output()
   public favoritesChanged: EventEmitter<any>;
@@ -18,10 +22,9 @@ export class StationSearchComponent implements OnInit {
     this.favoritesChanged = new EventEmitter();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   async refresh(): Promise<void> {
-    // TODO
+    this.stationList.refresh()
   }
 }

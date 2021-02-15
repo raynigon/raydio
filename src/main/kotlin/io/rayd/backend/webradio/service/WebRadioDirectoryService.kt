@@ -37,7 +37,7 @@ class WebRadioDirectoryServiceImpl(
     @Async
     override fun refresh() {
         if (running) return // TODO throw already running exception here
-        val task = AppTask(id = UUID.randomUUID(), name = "Refresh WebRadio Directory")
+        val task = AppTask(id = UUID.randomUUID(), name = "refresh-station-directory")
         stateService.addTask(task)
         try {
             running = true

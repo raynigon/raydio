@@ -14,6 +14,9 @@ import { WebRadioSettingsComponent } from './web-radio-settings/web-radio-settin
 import { CreateStationComponent } from './create-station/create-station.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { StationSearchComponent } from './station-search/station-search.component';
+import { StationRefreshComponent } from './station-refresh/station-refresh.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RaydioModule } from '../raydio/raydio.module';
 
 @NgModule({
   declarations: [
@@ -21,11 +24,13 @@ import { StationSearchComponent } from './station-search/station-search.componen
     WebRadioSettingsComponent,
     CreateStationComponent,
     StationListComponent,
-    StationSearchComponent
+    StationSearchComponent,
+    StationRefreshComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    RaydioModule,
     HttpClientModule,
     MatCardModule,
     MatTabsModule,
@@ -33,13 +38,15 @@ import { StationSearchComponent } from './station-search/station-search.componen
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatProgressBarModule,
   ],
   exports: [
     PlayerComponent,
     WebRadioSettingsComponent,
     CreateStationComponent,
     StationListComponent,
-    StationSearchComponent
+    StationSearchComponent,
+    StationRefreshComponent
   ],
   providers: [
     WebRadioRepositoryService,

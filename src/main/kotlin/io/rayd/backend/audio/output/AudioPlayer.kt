@@ -32,6 +32,7 @@ class DefaultAudioPlayer(
         private var currentProcessor: AudioProcessor? = null
     }
 
+    @Synchronized
     override fun play(source: MediaSource) {
         currentProcessor?.stop()
         try {
@@ -45,6 +46,7 @@ class DefaultAudioPlayer(
         }
     }
 
+    @Synchronized
     override fun stop() {
         currentProcessor?.stop()
         currentProcessor = null

@@ -25,6 +25,12 @@
       </td>
     </tr>
   </table>
-  <ng-template #noItems>No Items!</ng-template>
+  <ng-template #noItems>
+    <center>
+      No Stations were found!
+    </center>
+  </ng-template>
 </div>
-<ng-template #loading>loading animation...</ng-template>
+<ng-template #loading>
+  <app-loading-animation></app-loading-animation>
+</ng-template>

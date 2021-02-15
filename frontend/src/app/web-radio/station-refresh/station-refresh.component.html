@@ -1,0 +1,13 @@
+<p>
+    You can refresh the stations directory here.
+    The refresh downloads a list of all known Stations.
+    Click the button below and wait until the process is finished.
+    After the refresh your station directory is up to date.
+    If there are still stations missing, you can add them yourself in the 'Create Station' form.
+</p>
+<mat-progress-bar *ngIf="refreshing" mode="indeterminate" color="accent"></mat-progress-bar>
+<br />
+<button mat-raised-button color="accent" (click)="refreshStations()" [disabled]="refreshing">
+  <mat-icon>refresh</mat-icon>
+  <span>Refresh Stations</span>
+</button>

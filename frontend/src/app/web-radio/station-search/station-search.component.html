@@ -16,5 +16,5 @@
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
-<wr-station-list [favorites]="false" [query]="stationName"></wr-station-list>
+<wr-station-list [favorites]="false" [query]="stationName" (favoritesChanged)="favoritesChanged.emit($event)"></wr-station-list>
 
