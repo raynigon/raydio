@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'airplay-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss']
 })

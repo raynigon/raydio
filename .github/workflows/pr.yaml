@@ -37,6 +37,20 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@master
         with:
           project-token: ${{ secrets.CODACY_TOKEN }}
+  frontend_lint:
+    name: "Frontend Linting"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.4
+        with:
+          node-version: 12
+      - name: Install Packages
+        run: npm i
+        working-directory: frontend
+      - name: Build Production
+        run: npx ng lint
+        working-directory: frontend
   frontend_test:
     name: "Frontend Build"
     runs-on: ubuntu-latest
