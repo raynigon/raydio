@@ -1,0 +1,21 @@
+.container {
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.card {
+  box-sizing: border-box;
+  width: 100vw;
+  margin-top: 25px;
+
+  @media (min-width: 768px) {
+    width: 750px;
+    margin: 25px;
+  }
+
+  a {
+    color: white;
+  }
+}

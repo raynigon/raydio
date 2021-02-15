@@ -8,6 +8,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { GeneralSettingsComponent } from './general-settings/general-settings.co
     MatIconModule,
     MatListModule,
     MatDividerModule,
+    MatCardModule,
     RaydioModule,
     WebRadioModule
   ],
