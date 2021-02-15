@@ -7,10 +7,6 @@ import io.rayd.backend.audio.source.MediaStreamFactory
 import io.rayd.backend.webradio.configuration.WebRadioProperties
 import io.rayd.backend.webradio.io.IcyMetaDataStream
 import io.rayd.backend.webradio.model.WebRadioStation
-import org.apache.http.HttpResponse
-import org.apache.http.client.HttpClient
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.HttpClientBuilder
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
 import java.io.BufferedInputStream

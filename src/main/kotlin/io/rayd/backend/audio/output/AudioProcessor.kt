@@ -1,7 +1,6 @@
 package io.rayd.backend.audio.output
 
 import io.rayd.backend.audio.source.MediaSource
-import org.apache.tomcat.util.http.fileupload.IOUtils
 import org.slf4j.LoggerFactory
 import javax.sound.sampled.AudioFormat
 import javax.sound.sampled.AudioInputStream

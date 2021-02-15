@@ -1,7 +1,7 @@
 package io.rayd.backend.webradio.io
 
 import java.nio.BufferOverflowException
-import kotlin.math.*
+import kotlin.math.min
 
 class ByteQueue(size: Int = 0) {
 
