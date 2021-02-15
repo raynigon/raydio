@@ -15,8 +15,8 @@ export class WebRadioRepositoryService {
       .pipe(map(response => (response as any).items));
   }
 
-  public listAllStations(): Observable<any> {
-    return this.http.get('/api/v1/webradio/?favorites=false')
+  public searchStation(query: string): Observable<any> {
+    return this.http.get(`/api/v1/webradio/?favorites=false&query=${query}`)
       .pipe(map(response => (response as any).items));
   }
 

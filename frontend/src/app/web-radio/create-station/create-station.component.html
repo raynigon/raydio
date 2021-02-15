@@ -1,0 +1,35 @@
+<mat-form-field class="create-station-field">
+    <mat-label>Station Name</mat-label>
+    <input
+      matInput
+      placeholder="Name"
+      [(ngModel)]="station.name"
+      required="true"
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="create-station-field">
+    <mat-label>MP3 Stream</mat-label>
+    <input
+      matInput
+      type="url"
+      placeholder="Stream"
+      [(ngModel)]="station.stream"
+      required="true"
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="create-station-field">
+    <mat-label>Logo URL</mat-label>
+    <input
+      matInput
+      type="url"
+      placeholder="Logo"
+      [(ngModel)]="station.logo"
+    />
+  </mat-form-field>
+  <br />
+  <button mat-button (click)="addStation()">
+    <mat-icon>add</mat-icon>
+    <span>Create Station</span>
+  </button>

@@ -1,0 +1,30 @@
+<div class="results" *ngIf="stations$ | async as stations; else loading">
+  <table *ngIf="stations.length; else noItems" class="station-table">
+    <tr *ngFor="let station of stations">
+      <td>
+        {{ station.name }}
+      </td>
+      <td class="station-logo-column">
+        <img [src]="station.logo" *ngIf="station.logo != null" />
+      </td>
+      <td class="actions-column">
+        <button
+          mat-icon-button
+          (click)="favorStation(station)"
+          aria-label="Favor Station"
+        >
+          <mat-icon
+            [class]="
+              station.favorite
+                ? 'material-icons favorite-icon'
+                : 'material-icons-outlined'
+            "
+            >grade</mat-icon
+          >
+        </button>
+      </td>
+    </tr>
+  </table>
+  <ng-template #noItems>No Items!</ng-template>
+</div>
+<ng-template #loading>loading animation...</ng-template>

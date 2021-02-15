@@ -59,8 +59,15 @@ class WebRadioController(
         @RequestParam(
             "favorites",
             defaultValue = "true"
-        ) favorites: Boolean = true
-    ): StationListResponse =
-        (if (favorites) service.listFavorites() else service.list())
-            .let { mapper.mapToListResponse(it) }
+        ) favorites: Boolean = true,
+        @RequestParam(
+            "query",
+            defaultValue = ""
+        ) query: String = ""
+    ): StationListResponse {
+        if (favorites) {
+            return service.listFavorites().let(mapper::mapToListResponse)
+        }
+        return service.search(query).let(mapper::mapToListResponse)
+    }
 }

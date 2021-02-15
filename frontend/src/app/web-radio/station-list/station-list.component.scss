@@ -1,0 +1,17 @@
+.station-table {
+  width: 100%;
+
+  .station-logo-column img {
+    width: 100px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .actions-column {
+    text-align: right;
+
+    .favorite-icon {
+      color: #ffd700;
+    }
+  }
+}

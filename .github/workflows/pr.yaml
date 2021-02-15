@@ -3,6 +3,7 @@ name: CI-PR
 on:
   push:
     branches: [ ]
+    branches-ignore: [ 'main' ]
 
 jobs:
   backend_lint:

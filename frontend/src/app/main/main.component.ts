@@ -12,10 +12,6 @@ export class AppComponent {
       link: '/webradio'
     },
     {
-      title: 'Airplay',
-      link: '/airplay'
-    },
-    {
       title: 'Settings',
       link: '/settings'
     },
