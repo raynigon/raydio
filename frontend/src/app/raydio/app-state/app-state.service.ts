@@ -6,26 +6,26 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AppStateService {
 
-  public $state: BehaviorSubject<any>
-  private source: EventSource
+  public $state: BehaviorSubject<any>;
+  private source: EventSource;
 
   constructor() {
     this.$state = new BehaviorSubject({
       source: null
     });
     this.source = new EventSource('/api/v1/application/state/events');
-    this.source.addEventListener("application-state-update", (event: any) => {
+    this.source.addEventListener('application-state-update', (event: any) => {
       try{
-        const content = JSON.parse(event.data)
-        this.handleEvent(content)
-      }catch(exception){
-        console.error(exception)
+        const content = JSON.parse(event.data);
+        this.handleEvent(content);
+      }catch (exception){
+        console.error(exception);
       }
     });
-    this.source.onerror = (error) => this.$state.error(error)
+    this.source.onerror = (error) => this.$state.error(error);
   }
 
-  public handleEvent(event: any) {
-    this.$state.next(event)
+  public handleEvent(event: any): void {
+    this.$state.next(event);
   }
 }

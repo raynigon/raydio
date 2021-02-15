@@ -43,13 +43,21 @@ class DefaultWebRadioStationService(
         )
     }
 
-    override fun save(station: WebRadioStation) {
-        repository.save(
+    override fun save(newStation: WebRadioStation) {
+        newStation.let { station ->
+            val dbStation = repository.findById(station.id).orNull()
+            if (dbStation != null)
+                station.copy(favorite = dbStation.favorite)
+            else
+                station
+        }.let { station ->
             if (station.logo != null)
                 station.copy(logo = downloadLogo(station.logo))
             else
                 station
-        )
+        }.let { station ->
+            repository.save(station)
+        }
     }
 
     @Transactional

@@ -26,7 +26,7 @@ import { MatListModule } from '@angular/material/list';
     MatListModule,
     AppRoutingModule,
     WebRadioModule,
-    SettingsModule,  
+    SettingsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

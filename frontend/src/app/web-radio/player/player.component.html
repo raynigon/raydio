@@ -11,7 +11,7 @@
         class="station-logo"
       />
       <div class="card-body">
-        <h5 class="card-title">{{ station.name }}</h5>
+        <span class="card-title">{{ station.name }}</span>
         <button
           class="station-action"
           mat-icon-button
@@ -25,26 +25,12 @@
             station.id == state?.source?.id ? "pause" : "play_arrow"
           }}</mat-icon>
         </button>
+        <p *ngIf="station.id == state?.source?.id" class="current-title">
+          <span class="payling-label">Playing:</span>
+          &nbsp;
+          <span>{{ state?.title }}</span>
+        </p>
       </div>
     </mat-card>
   </mat-tab>
 </mat-tab-group>
-
-<!--<div class="container">
-  <div class="form-group">
-    <label for="stationNameInput">Name</label>
-    <input type="text" class="form-control" id="stationNameInput" [(ngModel)]="station.name"/>
-  </div>
-  <div class="form-group">
-    <label for="stationUrlInput">Stream (MP3)</label>
-    <input type="url" class="form-control" id="stationUrlInput" [(ngModel)]="station.stream" />
-  </div>
-  <div class="form-group">
-    <label for="stationLogoUrlInput">Logo</label>
-    <input type="url" class="form-control" id="stationLogoUrlInput" [(ngModel)]="station.logo" />
-  </div>
-  <button type="button" class="btn btn-primary"(click)="addStation()">
-    PLUS_SIGN
-    <span>Add</span>
-  </button>
-</div>-->

@@ -8,17 +8,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   menuItems = [
     {
-      title: "Webradio",
-      link: "/webradio"
+      title: 'Webradio',
+      link: '/webradio'
     },
     {
-      title: "Airplay",
-      link: "/airplay"
+      title: 'Airplay',
+      link: '/airplay'
     },
     {
-      title: "Settings",
-      link: "/settings"
+      title: 'Settings',
+      link: '/settings'
     },
-  ]
+  ];
   isMenuCollapsed = true;
 }

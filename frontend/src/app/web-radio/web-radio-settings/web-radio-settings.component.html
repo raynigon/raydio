@@ -10,10 +10,15 @@
             {{ station.name }}
           </td>
           <td class="station-logo-column">
-            <img [src]="station.logo" />
+            <img [src]="station.logo" *ngIf="station.logo != null"/>
           </td>
           <td class="actions-column">
-            <button mat-icon-button (click)="deleteStation(station.id)"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button (click)="favorStation(station)" aria-label="Favor Station">
+              <mat-icon [class]="station.favorite ? 'material-icons favorite-icon' : 'material-icons-outlined'">grade</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteStation(station.id)" aria-label="Delete Station">
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </tr>
       </table>

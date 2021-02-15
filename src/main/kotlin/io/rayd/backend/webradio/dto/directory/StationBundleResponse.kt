@@ -12,7 +12,7 @@ data class StationBundleResponse(
 data class RadioStation(
     val id: UUID,
     val name: String,
-    val imageUrl: URL,
+    val imageUrl: URL?,
     val streams: List<RadioStationStream>
 )
 
