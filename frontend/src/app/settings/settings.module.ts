@@ -8,7 +8,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
-import { AirplayModule } from '../airplay/airplay.module';
 
 
 @NgModule({
@@ -20,8 +19,7 @@ import { AirplayModule } from '../airplay/airplay.module';
     MatListModule,
     MatDividerModule,
     RaydioModule,
-    WebRadioModule,
-    AirplayModule,
+    WebRadioModule
   ],
   exports: [SettingsOverviewComponent, GeneralSettingsComponent]
 })

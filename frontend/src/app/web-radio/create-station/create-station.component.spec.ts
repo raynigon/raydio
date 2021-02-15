@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AirplaySettingsComponent } from './airplay-settings.component';
+import { CreateStationComponent } from './create-station.component';
 
-describe('AirplaySettingsComponent', () => {
-  let component: AirplaySettingsComponent;
-  let fixture: ComponentFixture<AirplaySettingsComponent>;
+describe('CreateStationComponent', () => {
+  let component: CreateStationComponent;
+  let fixture: ComponentFixture<CreateStationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AirplaySettingsComponent ]
+      declarations: [ CreateStationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AirplaySettingsComponent);
+    fixture = TestBed.createComponent(CreateStationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

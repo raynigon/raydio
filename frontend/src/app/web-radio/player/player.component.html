@@ -1,5 +1,6 @@
-<mat-tab-group mat-stretch-tabs>
-  <mat-tab *ngFor="let station of $stations | async" class="station-tab">
+<ng-container *ngIf="stations$ | async as stations; else loading">
+<mat-tab-group mat-stretch-tabs *ngIf="stations.length; else noItems" class="station-table" [selectedIndex]="currentStationIndex">
+  <mat-tab *ngFor="let station of stations" class="station-tab">
     <ng-template mat-tab-label>
       <mat-icon *ngIf="station.id == state?.source?.id" class="station-label-playing">play_circle_outline</mat-icon>
       <span class="station-label">{{ station.name }}</span>
@@ -13,6 +14,7 @@
       <div class="card-body">
         <span class="card-title">{{ station.name }}</span>
         <button
+          *ngIf="!activeRequest"
           class="station-action"
           mat-icon-button
           (click)="
@@ -21,10 +23,13 @@
               : play(station.id)
           "
         >
-          <mat-icon>{{
+          <mat-icon >{{
             station.id == state?.source?.id ? "pause" : "play_arrow"
           }}</mat-icon>
         </button>
+        <div *ngIf="activeRequest" class="action-loading">
+          <app-loading-animation size="small"></app-loading-animation>
+        </div>
         <p *ngIf="station.id == state?.source?.id" class="current-title">
           <span class="payling-label">Playing:</span>
           &nbsp;
@@ -34,3 +39,20 @@
     </mat-card>
   </mat-tab>
 </mat-tab-group>
+</ng-container>
+<ng-template #noItems>
+  <div class="no-stations">
+    <h1>No Stations were found</h1>
+    <p>To add your favorite radio stations follow these steps:</p>
+    <ol>
+      <li>Click 'Settings' in the top menu</li>
+      <li>Click 'Webradio' in the settings</li>
+      <li>Enter the name of your favorite radio station into the 'Station Name' field</li>
+      <li>Click the <mat-icon class='material-icons-outlined'>grade</mat-icon> icon next to your favorite radio station</li>
+      <li>Come back to this view, by clicking 'Webradio' in the top menu</li>
+    </ol>
+  </div>
+</ng-template>
+<ng-template #loading>
+<app-loading-animation></app-loading-animation>
+</ng-template>

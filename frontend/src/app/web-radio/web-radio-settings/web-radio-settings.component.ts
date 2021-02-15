@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { StationListComponent } from '../station-list/station-list.component';
+import { StationSearchComponent } from '../station-search/station-search.component';
 import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-repository.service';
 
 @Component({
@@ -8,38 +10,22 @@ import { WebRadioRepositoryService } from '../web-radio-repository/web-radio-rep
 })
 export class WebRadioSettingsComponent implements OnInit {
 
-  public $stations: Observable<any>;
-  public station = {
-    name: '',
-    stream: '',
-    logo: ''
-  };
+  @ViewChild(StationSearchComponent)
+  public searchComponent!: StationSearchComponent;
 
-  constructor(private repository: WebRadioRepositoryService) {
-    this.$stations = null as any;
-  }
+  @ViewChild(StationListComponent)
+  public favoritesComponent!: StationListComponent;
 
-  ngOnInit(): void {
-    this.$stations = this.repository.listAllStations();
-  }
 
-  async addStation(): Promise<void> {
-    await this.repository.addStation(this.station);
-    this.station = {
-      name: '',
-      stream: '',
-      logo: ''
-    };
-    this.$stations = this.repository.listAllStations();
-  }
+  constructor() {}
 
-  async deleteStation(stationId: string): Promise<void> {
-    await this.repository.deleteStation(stationId);
-    this.$stations = this.repository.listAllStations();
-  }
 
-  async favorStation(station: any): Promise<void> {
-    await this.repository.updateStation(station.id, {favorite: !station.favorite});
-    this.$stations = this.repository.listAllStations();
+  ngOnInit(): void {}
+
+  public async update(): Promise<void>{
+    Promise.all([
+      this.searchComponent.refresh(),
+      this.favoritesComponent.refresh()
+    ]).catch(console.log);
   }
 }

@@ -15,8 +15,8 @@ export class WebRadioRepositoryService {
       .pipe(map(response => (response as any).items));
   }
 
-  public listAllStations(): Observable<any> {
-    return this.http.get('/api/v1/webradio/?favorites=false')
+  public searchStation(query: string): Observable<any> {
+    return this.http.get(`/api/v1/webradio/?favorites=false&query=${query}`)
       .pipe(map(response => (response as any).items));
   }
 
@@ -33,5 +33,9 @@ export class WebRadioRepositoryService {
 
   public deleteStation(stationId: string): Promise<any> {
     return this.http.delete(`/api/v1/webradio/${stationId}`).toPromise();
+  }
+
+  public refreshDirectory(): Promise<any> {
+    return this.http.post('/api/v1/webradio/directory/refresh', null).toPromise();
   }
 }

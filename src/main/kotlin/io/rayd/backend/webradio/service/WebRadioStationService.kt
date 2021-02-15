@@ -5,6 +5,7 @@ import io.rayd.backend.webradio.dto.CreateStationRequest
 import io.rayd.backend.webradio.dto.UpdateStationRequest
 import io.rayd.backend.webradio.model.WebRadioStation
 import io.rayd.backend.webradio.repository.WebRadioStationRepository
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.util.Base64Utils
@@ -19,7 +20,7 @@ interface WebRadioStationService {
     fun update(stationId: UUID, request: UpdateStationRequest): WebRadioStation
     fun delete(stationId: UUID)
     fun getDetails(stationId: UUID): WebRadioStation
-    fun list(): List<WebRadioStation>
+    fun search(query: String): List<WebRadioStation>
     fun listFavorites(): List<WebRadioStation>
 
     // Explicitly insert or update station
@@ -100,8 +101,8 @@ class DefaultWebRadioStationService(
         return repository.findById(stationId).orNull() ?: throw StationNotFoundException(stationId)
     }
 
-    override fun list(): List<WebRadioStation> {
-        return repository.findAllByOrderByName()
+    override fun search(query: String): List<WebRadioStation> {
+        return repository.findByNameContainsOrderByName(query, PageRequest.of(0, 10))
     }
 
     override fun listFavorites(): List<WebRadioStation> {

@@ -35,7 +35,7 @@ jobs:
         run: npm i
         working-directory: frontend
       - name: Build Production Frontend
-        run: npm run build
+        run: npm run build-prod
         working-directory: frontend
       - name: Upload Frontend
         uses: actions/upload-artifact@v1.0.0

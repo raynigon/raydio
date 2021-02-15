@@ -25,7 +25,7 @@ interface WebRadioDirectoryService {
 @Service
 @EnableConfigurationProperties(WebRadioProperties::class)
 class WebRadioDirectoryServiceImpl(
-    private val webClient: WebClient = WebClient.create(),
+    private val webClient: WebClient,
     private val properties: WebRadioProperties,
     private val stateService: ApplicationStateService,
     private val stationService: WebRadioStationService,
@@ -37,7 +37,7 @@ class WebRadioDirectoryServiceImpl(
     @Async
     override fun refresh() {
         if (running) return // TODO throw already running exception here
-        val task = AppTask(id = UUID.randomUUID(), name = "Refresh WebRadio Directory")
+        val task = AppTask(id = UUID.randomUUID(), name = "refresh-station-directory")
         stateService.addTask(task)
         try {
             running = true
