@@ -7,7 +7,7 @@ RAYDIO_SERVICE_NAME=raydio
 mkdir -p /opt/raydio/data
 
 # Create User
-adduser --system $RAYDIO_USERNAME
+adduser --system $RAYDIO_USERNAME audio
 chown -R $RAYDIO_USERNAME /opt/raydio/
 
 # Register and Start Service
