@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ### Constants
 RELEASES_URL=https://api.github.com/repos/raynigon/raydio/releases/latest
@@ -56,10 +56,13 @@ check_tools () {
 ### Installation
 download () {
     EXTENSION=$1
-    RELEASES_JSON=$(curl -s $RELEASES_URL)
-    DOWNLOAD_URL=$(echo $RELEASES_JSON | python3 -c "
+    TMP_RELEASE_JSON=$(mktemp --suffix=.json)
+    log_debug "Saved Release Information to $TMP_RELEASE_JSON"
+    curl -s --output "$TMP_RELEASE_JSON" "$RELEASES_URL"
+    DOWNLOAD_URL=$(python3 -c "
 import sys, json; 
-document = json.load(sys.stdin)
+with open('$TMP_RELEASE_JSON') as file:
+    document = json.load(file)
 if 'assets' not in document.keys():
     print('<--NOT_FOUND-->')
     exit(0)
@@ -67,7 +70,7 @@ assets = list(filter(lambda x: x['name'].endswith('.$EXTENSION'), document['asse
 if len(assets) < 1:
     print('<--NOT_FOUND-->')
     exit(0)
-print(assets[0]['url'])
+print(assets[0]['browser_download_url'])
 ")
     if [[ $DOWNLOAD_URL == *"<--NOT_FOUND-->"* ]]; then
         log_error "Unable to find Download URL"
@@ -89,7 +92,7 @@ print(assets[0]['url'])
 
 install_deb () {
     DEB_FILE=$1
-    log_info "Starting Package Installation"
+    log_info "Starting Package Installation of $DEB_FILE"
     log_info "Superuser required for Installation"
     sudo apt install -y $DEB_FILE
     RESULT=$?
@@ -101,7 +104,7 @@ install_deb () {
 
 install_rpm_with_yum () {
     RPM_FILE=$1
-    log_info "Starting Package Installation"
+    log_info "Starting Package Installation of $RPM_FILE"
     log_info "Superuser required for Installation"
     sudo yum localinstall $RPM_FILE
     RESULT=$?
@@ -113,7 +116,7 @@ install_rpm_with_yum () {
 
 install_rpm_with_dnf () {
     RPM_FILE=$1
-    log_info "Starting Package Installation"
+    log_info "Starting Package Installation of $RPM_FILE"
     log_info "Superuser required for Installation"
     sudo dnf localinstall $RPM_FILE
     RESULT=$?
@@ -125,7 +128,7 @@ install_rpm_with_dnf () {
 
 install_rpm_plain () {
     RPM_FILE=$1
-    log_info "Starting Package Installation"
+    log_info "Starting Package Installation of $RPM_FILE"
     log_info "Superuser required for Installation"
     sudo rpm –i $RPM_FILE
     RESULT=$?
