@@ -79,7 +79,7 @@ print(assets[0]['browser_download_url'])
     TMP_DEB_FILE=$(mktemp --suffix=.$EXTENSION)
     chmod 775 $TMP_DEB_FILE
     log_info "Downloading Package..."
-    curl -s -H "Accept: application/octet-stream" --output $TMP_DEB_FILE $DOWNLOAD_URL
+    curl -s -L -H "Accept: application/octet-stream" --output $TMP_DEB_FILE $DOWNLOAD_URL
     RESULT=$?
     if [[ $RESULT -ne 0 ]]; then
         log_error "Unable Download Package"
