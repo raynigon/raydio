@@ -26,10 +26,13 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Installation:
-      - APT: installation/apt.md
+      - Linux: installation/linux.md
       - Docker: installation/docker.md
-      - Web App: installation/webapp.md
+      - MacOS: installation/macos.md
+      - Windows: installation/windows.md
   - Configuration: config.md
+  - Usage:
+      - Web App Installation: usage/webapp-installation.md
   - Imprint: http://raynigon.de/impressum.html
 extra:
   latest_version: 1.1.0
