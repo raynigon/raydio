@@ -74,6 +74,7 @@ print(assets[0]['url'])
         abort 1
     fi
     TMP_DEB_FILE=$(mktemp --suffix=.$EXTENSION)
+    chmod 775 $TMP_DEB_FILE
     log_info "Downloading Package..."
     curl -s -H "Accept: application/octet-stream" --output $TMP_DEB_FILE $DOWNLOAD_URL
     RESULT=$?
