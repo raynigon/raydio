@@ -73,7 +73,7 @@ print(assets[0]['url'])
         log_error "Unable to find Download URL"
         abort 1
     fi
-    TMP_DEB_FILE=$(mktemp)
+    TMP_DEB_FILE=$(mktemp --suffix=.$EXTENSION)
     log_info "Downloading Package..."
     curl -s -H "Accept: application/octet-stream" --output $TMP_DEB_FILE $DOWNLOAD_URL
     RESULT=$?
