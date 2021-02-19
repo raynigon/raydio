@@ -90,7 +90,7 @@ install_deb () {
     DEB_FILE=$1
     log_info "Starting Package Installation"
     log_info "Superuser required for Installation"
-    sudo apt install $DEB_FILE
+    sudo apt install -y $DEB_FILE
     RESULT=$?
     if [[ $RESULT -ne 0 ]]; then
         log_error "Unable to Install Package"
