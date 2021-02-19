@@ -17,6 +17,7 @@ repo_url: 'https://github.com/raynigon/raydio'
 edit_uri: 'edit/main/docs/'
 markdown_extensions:
   - admonition
+  - footnotes
   - codehilite:
       linenums: False
   - pymdownx.superfences
@@ -27,6 +28,7 @@ nav:
   - Installation:
       - APT: installation/apt.md
       - Docker: installation/docker.md
+      - Web App: installation/webapp.md
   - Configuration: config.md
   - Imprint: http://raynigon.de/impressum.html
 extra:
