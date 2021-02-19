@@ -16,7 +16,7 @@ ospackage {
     ]
 
     requires('coreutils')
-    requires('openjdk-11-jdk')
+    requires('openjdk-11-jre-headless')
 
     into '/opt/raydio'
 

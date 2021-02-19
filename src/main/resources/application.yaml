@@ -1,6 +1,8 @@
 spring:
   datasource:
     url: "jdbc:sqlite:development_db.sqlite"
+    hikari:
+      maximumPoolSize: 1
   jpa:
     database-platform: "org.sqlite.hibernate.dialect.SQLiteDialect"
 raydio:
