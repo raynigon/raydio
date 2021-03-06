@@ -1,4 +1,6 @@
 spring:
+  # This should enable a faster startup
+  main.lazy-initialization: true
   datasource:
     url: "jdbc:sqlite:development_db.sqlite"
     hikari:
