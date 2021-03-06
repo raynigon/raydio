@@ -1,5 +1,9 @@
+#=======================================
+# Spring Boot Framework Configuration
+#=======================================
 spring:
-  # This should enable a faster startup
+  # This should enable a faster startup,
+  # but the first http call will be much slower
   main.lazy-initialization: true
   datasource:
     url: "jdbc:sqlite:development_db.sqlite"
@@ -7,6 +11,10 @@ spring:
       maximumPoolSize: 1
   jpa:
     database-platform: "org.sqlite.hibernate.dialect.SQLiteDialect"
+server.jetty.threads.acceptors: 3
+#=======================================
+# Raydio Application Configuration
+#=======================================
 raydio:
   webradio:
     directory:
