@@ -8,8 +8,10 @@ import kotlin.math.min
  *
  * This implementation assumes that the read operation is more time critical than the write operation.
  * Therefore the internal buffer is shrunk on write instead of read.
+ *
+ * Default Size: 16KB
  * */
-class ByteQueue(size: Int = 0) {
+class ByteQueue(size: Int = 16 * 1024) {
 
     private var writePtr = 0
     private var readPtr = 0
