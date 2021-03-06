@@ -23,6 +23,7 @@ class AudioProcessor(
     }
 
     fun start() {
+        thread.priority = Thread.MAX_PRIORITY
         thread.start()
     }
 

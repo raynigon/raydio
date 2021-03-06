@@ -22,4 +22,9 @@ IFS=$' '
 
 # Start Application
 cd "$PATH_TO_WORKSPACE"
-java -Xms256M -Xmx1024M -jar $PATH_TO_JAR >> log.txt
+java \
+  -Xms256M \
+  -Xmx1024M  \
+  -XX:+UseG1GC \
+  -XX:MaxGCPauseMillis=200 \
+  -jar $PATH_TO_JAR >> log.txt
