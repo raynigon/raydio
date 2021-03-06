@@ -97,12 +97,15 @@ class IcyMetaDataStream(
         if (metadata)
             interval = response.getFirstHeader("icy-metaint").value.toInt()
         stream = response.entity.content
+        logger.info("Open Stream: $streamUrl")
     }
 
     private fun ensureBuffered() {
         bufferFilled = buffer.available() > BUFFER_16_KB
+        if (!bufferFilled)
+            logger.info("Buffer is insufficient, available: ${buffer.available()}, needed: $BUFFER_16_KB")
         while (buffer.available() < BUFFER_96_KB && !bufferFilled) {
-            Thread.sleep(10)
+            Thread.sleep(25)
         }
         bufferFilled = true
     }
